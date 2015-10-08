@@ -1,0 +1,171 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Patrick+Hand);
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	background-color: black;
+	cursor: default;
+	font-family: 'Patrick Hand', sans-serif;
+	font-size: 2.5rem;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+header {
+	background: gray;
+	padding: 2.0rem;
+}
+
+nav, footer {
+	background-color: black; 
+	height: 7.5rem;
+	width: 100%;
+}
+
+.bar-button {
+	box-sizing: border-box;
+	color: white;
+	float: right;
+	display: block;
+	height: 100%;
+	padding: 2.0rem 0 2.0rem 0;
+	text-align: center;
+	text-decoration: none;
+	width: 15.0rem;
+}
+
+.bar-button:hover {
+	background-color: orange;
+}
+
+.bar-paragraph {
+	box-sizing: border-box;
+	color: white;
+	float: left;
+	display: inline;
+	padding: 2.0rem;
+}
+
+section.main {
+	background-color: silver;
+	box-sizing: border-box;
+	height: 100%;
+	padding: 2.0rem;
+	width: 100%;
+}
+
+h1, h2, h3 {
+	margin: 0 0 3.0rem 0;
+	text-align: center;
+}
+
+h1 {
+	font-size: 8.0rem;
+}
+
+h2 {
+	font-size: 3.0rem;
+}
+
+h3 {
+	font-size: 2.5rem;
+}
+
+.centered {
+	text-align: center;
+}
+
+.hided {
+	display: none;
+}
+
+input[type=text], input[type=password] {
+	font-family: 'Patrick Hand', sans-serif;
+	font-size: 2.0rem;
+	margin: 3.0rem 0 3.0rem 0;
+	width: 30.0rem;
+}
+
+input[type=submit] {
+	cursor: pointer;
+	font-family: 'Patrick Hand', sans-serif;
+	font-size: 2.0rem;
+	height: 6.0rem;
+	margin: 1.0rem 0 1.0rem 0;
+	width: 20.0rem;
+}
+
+table input[type=submit], table input[type=button]  {
+	cursor: pointer;
+	font-family: 'Patrick Hand', sans-serif;
+	font-size: 2.0rem;
+	height: 3.0rem;
+	margin: 1.0rem 0 1.0rem 0;
+	width: 20.0rem;
+}
+
+input[type=checkbox] {
+	cursor: pointer;
+	margin: 1.0rem 0 2.0rem 0;
+}
+
+p {
+	margin: 0;
+}
+
+.message {
+	border-radius: 3.0rem;
+	box-sizing: border-box;
+	color: white;
+	margin: 0 10% 3.0rem 10%;
+	padding: 2.0rem;
+	width: 80%;
+}
+
+.failure {
+	background-color: red;
+}
+
+.success {
+	background-color: green;
+}
+
+a {
+	color: white;
+}
+
+table {
+	width: 100%;	
+}
+
+table, td, th {   
+    	border: 2px solid black; 
+	border-collapse: collapse;
+	font-size: 2.0rem;
+	text-align: center;
+}
+
+.noborder, .noborder th, .noborder td {
+	border: 0px solid black;
+	border-collapse: initial;
+	margin-top: 20px;
+}
+
+.panic {
+	background-color: red;
+	width: 500px;
+	border-radius: 500px;
+	padding: 90px 0 110px 0;
+	color: white;
+	
+}
+
+.panic-form{
+	width: 100%;
+	text-align: center;
+	
+}

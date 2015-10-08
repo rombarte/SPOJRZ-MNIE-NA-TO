@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Rejestracja - {NazwaAplikacji}</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="szablon/style.css">
+	</head>
+	<body>
+		<div class="menu">
+			<a href="logowanie.php" class="bar-button">Logowanie</a>
+			<a href="regulamin.php" class="bar-button">Regulamin</a>
+		</div>
+		<div class="main">
+			<h1>{NazwaAplikacji}</h1>
+			<h2>{RozkazMenu}</h2>
+			{BLOK:POWIADOMIENIE}
+				{TekstPowiadomienia}
+			{/BLOK:POWIADOMIENIE}
+			{BLOK:FORMULARZ}
+			<form action="uruchom-rejestracja.php" method="post" class="centered">
+				<p>Nazwa użytkownika</p>
+				<input type="text" name="uzytkownik_nazwa" required>
+				<p>Hasło użytkownika</p>
+				<input type="password" name="uzytkownik_haslo" required>
+				<p>Adres e-mail</p>
+				<input type="text" name="uzytkownik_mail" required><br>
+				<input type="checkbox" name="uzytkownik_zgoda" required> Akceptuję regulamin korzystania z serwisu<br>
+				<input type="submit" value="Załóż konto">
+			</form>
+			{/BLOK:FORMULARZ}
+		</div>
+		<footer>
+			<p class="bar-paragraph">{TekstStopki}</p>
+		</footer>
+	</body>
+</html>

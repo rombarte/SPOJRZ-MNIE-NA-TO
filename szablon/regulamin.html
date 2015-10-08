@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Regulamin - {NazwaAplikacji}</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="szablon/style.css">
+	</head>
+	<body>
+		<div class="menu">
+			<a href="rejestracja.php" class="bar-button">Rejestracja</a>
+			<a href="logowanie.php" class="bar-button">Logowanie</a>
+		</div>
+		<div class="main">
+			<h1>{NazwaAplikacji}</h1>
+			<h2>{RozkazMenu}</h2>
+			{BLOK:REGULAMIN}
+				{TekstRegulaminu}
+			{/BLOK:REGULAMIN}
+		</div>
+		<footer>
+			<p class="bar-paragraph">{TekstStopki}</p>
+		</footer>
+	</body>
+</html>

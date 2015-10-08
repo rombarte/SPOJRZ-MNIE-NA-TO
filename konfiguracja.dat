@@ -1,0 +1,1 @@
+<?php $baza_serwer = "localhost"; $baza_uzytkownik = "rombarte"; $baza_haslo = "rombarte"; $baza_nazwa = "look014"; ?>
