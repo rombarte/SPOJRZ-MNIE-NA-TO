@@ -63,11 +63,15 @@ h1, h2, h3 {
 	text-align: center;
 }
 
-h1 {
+header h1 {
 	font-size: 8.0rem;
 }
 
-h2 {
+header h2 {
+	font-size: 3.0rem;
+}
+
+section h1 {
 	font-size: 3.0rem;
 }
 

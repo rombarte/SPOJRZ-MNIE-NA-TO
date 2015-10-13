@@ -16,7 +16,7 @@
 					<p>Nazwa użytkownika</p>
 					<input type="text" name="baza_uzytkownik" required>
 					<p>Hasło użytkownika</p>
-					<input type="text" name="baza_haslo" required>
+					<input type="password" name="baza_haslo" required>
 					<p>Nazwa bazy danych</p>
 					<input type="text" name="baza_nazwa" required><br>
 					<input type="submit" value="Zainstaluj">

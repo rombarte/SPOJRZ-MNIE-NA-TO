@@ -6,29 +6,21 @@
 		<link rel="stylesheet" href="szablon/style.css">
 	</head>
 	<body>
-		<div class="menu">
-			<a href="logowanie.php" class="bar-button">Logowanie</a>
-			<a href="regulamin.php" class="bar-button">Regulamin</a>
-		</div>
-		<div class="main">
+		<nav>
+			{ZawartoscMenu}
+		</nav>
+		<header>
 			<h1>{NazwaAplikacji}</h1>
 			<h2>{RozkazMenu}</h2>
+		</header>
+		<section class="main">
 			{BLOK:POWIADOMIENIE}
 				{TekstPowiadomienia}
 			{/BLOK:POWIADOMIENIE}
 			{BLOK:FORMULARZ}
-			<form action="uruchom-rejestracja.php" method="post" class="centered">
-				<p>Nazwa użytkownika</p>
-				<input type="text" name="uzytkownik_nazwa" required>
-				<p>Hasło użytkownika</p>
-				<input type="password" name="uzytkownik_haslo" required>
-				<p>Adres e-mail</p>
-				<input type="text" name="uzytkownik_mail" required><br>
-				<input type="checkbox" name="uzytkownik_zgoda" required> Akceptuję regulamin korzystania z serwisu<br>
-				<input type="submit" value="Załóż konto">
-			</form>
+				{ZawartoscFormularz}
 			{/BLOK:FORMULARZ}
-		</div>
+		</section>
 		<footer>
 			<p class="bar-paragraph">{TekstStopki}</p>
 		</footer>
