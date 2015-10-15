@@ -1,5 +1,4 @@
 ﻿<?php
-	// CO POKAZAĆ? NIC //
 	
 	session_start();
 	session_destroy();

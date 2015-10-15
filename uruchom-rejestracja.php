@@ -1,5 +1,4 @@
 ﻿<?php
-	// CO POKAZAĆ? META CHARSET UTF8 //
 	
 	require "konfiguracja.dat";
 
@@ -16,9 +15,7 @@
 	$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT komputer_status FROM komputer WHERE komputer_adres='".$_SERVER['REMOTE_ADDR']."'");
 	
 	$zapytanie_wiersz = mysqli_fetch_row($zapytanie_rezultat);
-	
-	echo $_SERVER['REMOTE_ADDR'];
-	
+		
 	if (count($zapytanie_wiersz) == 1) {
 		if ($zapytanie_wiersz[0] == 2 || $zapytanie_wiersz[0] == 3 || $zapytanie_wiersz[0] == 6 || $zapytanie_wiersz[0] == 7);
 		else {

@@ -1,5 +1,4 @@
 ﻿<?php
-	// CO POKAZAĆ? DELETE + INSERT INTO //
 
 	require "konfiguracja.dat";
 	

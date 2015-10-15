@@ -1,5 +1,4 @@
 ﻿<?php
-	// CO POKAZAĆ? CALL PROCEDURE //
 	
 	require "konfiguracja.dat";
 	
