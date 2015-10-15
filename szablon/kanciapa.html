@@ -4,9 +4,6 @@
 		<title>Kanciapa - {NazwaAplikacji}</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="szablon/style.css">
-		<script>
-			var licznik = 0;
-		</script>
 	</head>
 	<body>
 		<nav>
@@ -18,12 +15,13 @@
 		</header>
 		<section class="main">
 			{BLOK:LINKI}
+				<h1>{NaglowekLinki}</h1>
 				{ZawartoscLinki}
 			{/BLOK:LINKI}	
-			
-			{BLOK:KOMPUTERLISTA}
+			{BLOK:KOMPUTERY}
+				<h1>{NaglowekKomputery}</h1>
 				{ZawartoscKomputery}
-			{/BLOK:KOMPUTERLISTA}
+			{/BLOK:KOMPUTERY}
 		</section>
 		<footer>
 			<p class="bar-paragraph">{TekstStopki}</p>
