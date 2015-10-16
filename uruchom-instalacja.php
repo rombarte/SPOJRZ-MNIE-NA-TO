@@ -1,5 +1,4 @@
 ﻿<?php
-	// CO POKAZAĆ? CREATE TABLE + INSERT INTO + CREATE VIEW + CREATE TRIGGER + START TRANSACTION, COMMIT, ROLLBACK + DELIMITER //
 
 	// Utwórz połączenie
 	$baza_polaczenie = mysqli_connect($_POST['baza_serwer'], $_POST['baza_uzytkownik'], $_POST['baza_haslo'], $_POST['baza_nazwa']);

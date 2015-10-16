@@ -9,7 +9,7 @@
 
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
-		header('Location: logowanie.php?failure');
+		header('Location: pozwolenie.php');
 	}
 	
 	// Dane pobrane poprzez POST
@@ -24,7 +24,7 @@
 	if (count($zapytanie_wiersz) == 1) {
 		if ($zapytanie_wiersz[0] == 1 || $zapytanie_wiersz[0] == 3 || $zapytanie_wiersz[0] == 5 || $zapytanie_wiersz[0] == 7);
 		else {
-			header('Location: logowanie.php?failure&adress');
+			header('Location: pozwolenie.php');
 			mysqli_close($baza_polaczenie);
 			exit();
 		}

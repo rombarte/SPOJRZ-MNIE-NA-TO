@@ -51,10 +51,10 @@
 
 	if (isset($_POST['dodaj'])) {
 		if (!$_POST['opis']=="") {
-					$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `komputer`(`komputer_id`, `komputer_adres`, `komputer_status`, `komputer_opis`, `komputer_data`) VALUES (md5('".$_POST['dodaj']."'), '".$_POST['dodaj']."', 7, '".$_POST['opis']."', NOW())");
+			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `komputer`(`komputer_id`, `komputer_adres`, `komputer_status`, `komputer_opis`, `komputer_data`) VALUES (md5('".$_POST['dodaj']."'), '".$_POST['dodaj']."', 7, '".$_POST['opis']."', NOW())");
 		}
 		else {
-					$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `komputer`(`komputer_id`, `komputer_adres`, `komputer_status`, `komputer_opis`, `komputer_data`) VALUES (md5('".$_POST['dodaj']."'), '".$_POST['dodaj']."', 7, 'BRAK OPISU', NOW())");
+			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `komputer`(`komputer_id`, `komputer_adres`, `komputer_status`, `komputer_opis`, `komputer_data`) VALUES (md5('".$_POST['dodaj']."'), '".$_POST['dodaj']."', 7, 'BRAK OPISU', NOW())");
 		}
 	}
 	
@@ -66,5 +66,5 @@
 		
 	mysqli_close($baza_polaczenie);
 	
-	header('Location: kanciapa.php?success&address');
+	header('Location: kanciapa.php?success');
 ?>

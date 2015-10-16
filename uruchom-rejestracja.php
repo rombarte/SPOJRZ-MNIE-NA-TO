@@ -8,7 +8,7 @@
 	
 	// Testuj połączenie
 	if (!$baza_polaczenie) {
-		die("Błąd połączenia z serwerem: ".mysqli_connect_error());
+		header('Location: pozwolenie.php');
 	}
 	
 	// Wyślij zapytanie o poprawność adresu komputera
@@ -19,7 +19,7 @@
 	if (count($zapytanie_wiersz) == 1) {
 		if ($zapytanie_wiersz[0] == 2 || $zapytanie_wiersz[0] == 3 || $zapytanie_wiersz[0] == 6 || $zapytanie_wiersz[0] == 7);
 		else {
-			header('Location: logowanie.php?failure&adress');
+			header('Location: pozwolenie.php');
 			mysqli_close($baza_polaczenie);
 			exit();
 		}
@@ -31,7 +31,7 @@
 	$zapytanie_wiersz = mysqli_fetch_row($zapytanie_rezultat);
 	if (count($zapytanie_wiersz) > 0) {
 	
-		header("Location: rejestracja.php?mistake");
+		header("Location: rejestracja.php?failure");
 	}
 	else {
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO uzytkownik (uzytkownik_id, uzytkownik_login, uzytkownik_haslo, uzytkownik_email, uzytkownik_ranga, uzytkownik_opis) VALUES (md5('".$_POST['uzytkownik_nazwa']."'),'".$_POST['uzytkownik_nazwa']."',sha1('".$_POST['uzytkownik_haslo']."'),'".$_POST['uzytkownik_mail']."',2,'Zwykły, szary użytkownik');");
