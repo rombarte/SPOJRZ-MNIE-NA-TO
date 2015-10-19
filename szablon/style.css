@@ -107,9 +107,9 @@ table input[type=submit], table input[type=button]  {
 	cursor: pointer;
 	font-family: 'Patrick Hand', sans-serif;
 	font-size: 2.0rem;
-	height: 3.0rem;
+	height: 5.0rem;
 	margin: 1.0rem 0 1.0rem 0;
-	width: 20.0rem;
+	width: 15.0rem;
 }
 
 input[type=checkbox] {
@@ -154,9 +154,11 @@ table, td, th {
 }
 
 .noborder, .noborder th, .noborder td {
+	background: gray;
 	border: 0px solid black;
 	border-collapse: initial;
-	margin-top: 20px;
+	margin: 20px 0;
+	padding-top: 1.0rem;
 }
 
 .panic {
