@@ -17,13 +17,17 @@
 	if (isset($_POST['usun'])) $zapytanie_rezultat = mysqli_query($baza_polaczenie, "DELETE FROM hiperlink WHERE hiperlink_id='".$_POST['usun']."';");
 	if (isset($_POST['hiperlink'])) {
 		if (!$_POST['obciety']=="") {
-			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `hiperlink`(`hiperlink_id`, `uzytkownik_id`, `hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('".$_POST['hiperlink']."'),md5('".$_SESSION['username']."'),CONCAT('http://',TRIM(LEADING 'http://' FROM TRIM(LEADING 'https://' FROM '".$_POST['hiperlink']."'))),'".$_POST['obciety']."',0,0,NOW())");
+			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `hiperlink`(`hiperlink_id`, `uzytkownik_id`, `hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('".strtolower($_POST['obciety'])."'),md5('".$_SESSION['username']."'),CONCAT('http://',TRIM(LEADING 'http://' FROM TRIM(LEADING 'https://' FROM '".strtolower($_POST['hiperlink'])."'))),'".strtolower($_POST['obciety'])."',0,0,NOW())");
 		}
 		else {
-			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `hiperlink`(`hiperlink_id`, `uzytkownik_id`, `hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('".$_POST['hiperlink']."'),md5('".$_SESSION['username']."'),CONCAT('http://',TRIM(LEADING 'http://' FROM TRIM(LEADING 'https://' FROM '".$_POST['hiperlink']."'))),SUBSTR(CONV(FLOOR(RAND() * 99999999999999), 20, 36), 8),0,0,NOW())");
+			mysqli_query($baza_polaczenie, "SET @losowaLiczba = (SELECT RAND())");
+			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO `hiperlink`(`hiperlink_id`, `uzytkownik_id`, `hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5(LCASE(SUBSTR(CONV(FLOOR(@losowaLiczba * 99999999999999), 20, 36), 8))),md5('".$_SESSION['username']."'),CONCAT('http://',TRIM(LEADING 'http://' FROM TRIM(LEADING 'https://' FROM '".strtolower($_POST['hiperlink'])."'))),LCASE(SUBSTR(CONV(FLOOR(@losowaLiczba * 99999999999999), 20, 36), 8)),0,0,NOW())");
 		}
 	}
-	mysqli_close($baza_polaczenie);
 	
+	if (mysqli_error($baza_polaczenie) != '') $_SESSION["powiadomienie"] = "Nie można wykonać tej operacji";
+	else $_SESSION["powiadomienie"] = 'Operacja wykonała się poprawnie';
+	
+	mysqli_close($baza_polaczenie);
 	header('Location: kanciapa.php');
 ?>

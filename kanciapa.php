@@ -7,11 +7,16 @@
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Witaj w swojej profesjonalnej kanciapie';
 	$naglowek_linki = 'Wyświetl listę utworzonych przez siebie hiperlinków';
-	
+	$tekst_powiadomienia = '';
 	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
 	
 	// Startuję sesję potrzebną do sprawdzenia ilości błędnych prób logowania
 	session_start();
+	
+	if (isset($_SESSION["powiadomienie"])) {
+		$tekst_powiadomienia = $_SESSION["powiadomienie"];
+		unset($_SESSION["powiadomienie"]);
+	}
 	
 	$szablon = file_get_contents('szablon/kanciapa.html');
 	
@@ -27,6 +32,18 @@
 	$szablon = preg_replace('/{ZawartoscMenu}/', $zawartosc_menu, $szablon);
 	$szablon = preg_replace('/{RozkazMenu}/', $rozkaz_menu, $szablon);
 	
+	if ($tekst_powiadomienia != '') {
+		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
+		$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia, $szablon);
+		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+	}
+	
+	else {
+		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '', $szablon);
+		$szablon = preg_replace('/{TekstPowiadomienia}/', '', $szablon);
+		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '', $szablon);
+	}
+		
 	$szablon = preg_replace('/{NaglowekLinki}/', $naglowek_linki, $szablon);
 	$szablon = preg_replace('/{BLOK:LINKI}/', '', $szablon);
 	$szablon = preg_replace('/{\/BLOK:LINKI}/', '', $szablon);
@@ -58,8 +75,10 @@
 					<td>Ilość kliknięć</td>
 					<td>Opcje</td>
 			    </tr>';
+	
+	$katalog = $_SERVER['SERVER_NAME'];
 	for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
-		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$_SERVER['SERVER_NAME']."/?p=".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";
+		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog."/?p=".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";
 	}
 	
 	$lista_linkow=$lista_linkow.'</table> 
@@ -78,7 +97,6 @@
 							<input type="submit" value="Dodaj hiperlink">
 						</td>
 						<td>
-							<p>Dodatkowe opcje:</p>
 							<input type="button" value="Eksportuj listę" onclick="location.href = \'zestawienie.php?type=hiperlink\';">
 						</td>
 				    </tr>
@@ -110,9 +128,32 @@
 						<td>Logowanie</td>
 						<td>Rejestracja</td>
 						<td>Wyświetlanie</td>
+						<td>Opcje</td>
 					</tr>';
 		for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
-			$lista_komputerow = $lista_komputerow."<tr><td>".$i."</td><td>".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td>".$zapytanie_wiersz[$i][4]."</td><td><form action='uruchom-kanciapa-komputer.php' method='post'><input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' /><input type='hidden' name='opcja' value='1' /><input type='submit' value='Zmień' /></form></td><td><form action='uruchom-kanciapa-komputer.php' method='post'><input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' /><input type='hidden' name='opcja' value='2' /><input type='submit' value='Zmień' /></form></td><td><form action='uruchom-kanciapa-komputer.php' method='post'><input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' /><input type='hidden' name='opcja' value='4' /><input type='submit' value='Zmień' /></form></td></tr>\n";
+			$lista_komputerow = $lista_komputerow."<tr><td>".$i."</td><td>".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td>".$zapytanie_wiersz[$i][4]."</td>
+				
+				<td><form action='uruchom-kanciapa-komputer.php' method='post'><input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' />
+				<input type='hidden' name='opcja' value='1' /><input type='submit' value='Zmień' />
+				</form></td>
+				
+				<td><form action='uruchom-kanciapa-komputer.php' method='post'>
+				<input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' />
+				<input type='hidden' name='opcja' value='2' />
+				<input type='submit' value='Zmień' />
+				</form></td>
+				
+				<td><form action='uruchom-kanciapa-komputer.php' method='post'>
+				<input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' />
+				<input type='hidden' name='opcja' value='4' /><input type='submit' value='Zmień' />
+				</form></td>
+				
+				<td><form action='uruchom-kanciapa-komputer.php' method='post'>
+				<input type='hidden' name='zmien' value='".$zapytanie_wiersz[$i][0]."' />
+				<input type='hidden' name='opcja' value='5' /><input type='submit' value='Usuń' />
+				</form></td>
+				
+				</tr>\n";
 		}
 		
 		$lista_komputerow=$lista_komputerow.'</table> 
@@ -131,7 +172,6 @@
 								<input type="submit" value="Dodaj komputer">
 							</td>
 							<td>
-								<p>Dodatkowe opcje:</p>
 								<input type="button" value="Eksportuj listę" onclick="location.href = \'zestawienie.php?type=komputer\';">
 							</td>
 					    </tr>

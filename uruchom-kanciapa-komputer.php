@@ -44,6 +44,10 @@
 				}
 				else $zapytanie_rezultat = mysqli_query($baza_polaczenie, "UPDATE `komputer` SET komputer_status=komputer_status+4 WHERE komputer_id='".$_POST['zmien']."'");
 			}
+			
+			if ($_POST['opcja'] == 5) {
+				$zapytanie_rezultat = mysqli_query($baza_polaczenie, "DELETE FROM `komputer` WHERE komputer_id='".$_POST['zmien']."'");
+			}
 
 		}
 			
@@ -63,7 +67,10 @@
 		header('Location: kanciapa.php?success&panic');
 		die();
 	}
-		
+	
+	if (mysqli_error($baza_polaczenie) != '') $_SESSION["powiadomienie"] = mysqli_error($baza_polaczenie); //"Nie można wykonać tej operacji";
+	else $_SESSION["powiadomienie"] = 'Operacja wykonała się poprawnie';
+	
 	mysqli_close($baza_polaczenie);
 	
 	header('Location: kanciapa.php?success');
