@@ -4,6 +4,7 @@
 	$nazwa_aplikacji = 'Spójrz mnie na to!';
 	$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
+			<a href="edycja.php" class="bar-button">Profil</a>
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Witaj w swojej profesjonalnej kanciapie';
 	$naglowek_linki = 'Wyświetl listę utworzonych przez siebie hiperlinków';
@@ -76,9 +77,9 @@
 					<td>Opcje</td>
 			    </tr>';
 	
-	$katalog = $_SERVER['SERVER_NAME'];
+	$katalog = substr($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], 0, -12);
 	for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
-		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog."/?p=".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";
+		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog."?p=".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";
 	}
 	
 	$lista_linkow=$lista_linkow.'</table> 

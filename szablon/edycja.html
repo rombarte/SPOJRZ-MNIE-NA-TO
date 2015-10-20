@@ -1,11 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 	<head>
-		<title>Logowanie - {NazwaAplikacji}</title>
+		<title>Rejestracja - {NazwaAplikacji}</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="szablon/style.css">
 	</head>
 	<body>
+		<nav>
+			{ZawartoscMenu}
+		</nav>
 		<header>
 			<h1>{NazwaAplikacji}</h1>
 			<h2>{RozkazMenu}</h2>
@@ -14,6 +17,12 @@
 			{BLOK:POWIADOMIENIE}
 				{TekstPowiadomienia}
 			{/BLOK:POWIADOMIENIE}
+			{BLOK:FORMULARZ}
+				{ZawartoscFormularz}
+			{/BLOK:FORMULARZ}
 		</section>
+		<footer>
+			<p class="bar-paragraph">{TekstStopki}</p>
+		</footer>
 	</body>
 </html>

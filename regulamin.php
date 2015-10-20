@@ -1,9 +1,20 @@
 ﻿<?php
-
+	session_start();
+	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to';
-    $zawartosc_menu = '<a href="rejestracja.php" class="bar-button">Rejestracja</a>
+	$nazwa_aplikacji = 'Spójrz mnie na to!';
+	if (isset($_SESSION['id'])) {
+		$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
+			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
+			<a href="edycja.php" class="bar-button">Profil</a>
+			<a href="kanciapa.php" class="bar-button">Kanciapa</a>';
+		$zawartosc_menu = preg_replace('/{NazwaUzytkownika}/', $_SESSION['username'], $zawartosc_menu);
+		$zawartosc_menu = preg_replace('/{AdresIP}/', $_SERVER['REMOTE_ADDR'], $zawartosc_menu);
+	}
+	else {
+		$zawartosc_menu = '<a href="rejestracja.php" class="bar-button">Rejestracja</a>
 			<a href="logowanie.php" class="bar-button">Logowanie</a>';
+	}
 	$rozkaz_menu = 'Przeczytaj regulamin korzystania z programu';
 	$tekst_regulaminu = '<h1>Użytkownikowi nie wolno:</h1>
     <li>Próbować robić niedozwolone rzeczy</li>
