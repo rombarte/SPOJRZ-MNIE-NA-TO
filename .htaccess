@@ -1,1 +1,4 @@
+RewriteEngine on
+RewriteRule ^galeria$ /index.php
 DirectoryIndex instalacja.php index.php logowanie.php rejestracja.php 
+

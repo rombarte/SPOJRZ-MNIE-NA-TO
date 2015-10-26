@@ -1,7 +1,7 @@
 ﻿<?php
+	require "konfiguracja.dat";
 	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to!';
 	$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="edycja.php" class="bar-button">Profil</a>

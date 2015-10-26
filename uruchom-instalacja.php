@@ -50,7 +50,7 @@
 		
 		// Zapisz plik konfiguracyjny na serwerze
 		$plik_konfiguracja = fopen("konfiguracja.dat", "w") or die("Nie można zapisać pliku konfiguracyjnego.");
-		$plik_zawartosc = '<?php $baza_serwer = "'.$_POST['baza_serwer'].'"; $baza_uzytkownik = "'.$_POST['baza_uzytkownik'].'"; $baza_haslo = "'.$_POST['baza_haslo'].'"; $baza_nazwa = "'.$_POST['baza_nazwa'].'"; ?>';
+		$plik_zawartosc = '<?php $baza_serwer = "'.$_POST['baza_serwer'].'"; $baza_uzytkownik = "'.$_POST['baza_uzytkownik'].'"; $baza_haslo = "'.$_POST['baza_haslo'].'"; $baza_nazwa = "'.$_POST['baza_nazwa'].'"; $nazwa_aplikacji = "'.$_POST['strona_nazwa'].'" ?>';
 		fwrite($plik_konfiguracja, $plik_zawartosc);
 		fclose($plik_konfiguracja);
 		
