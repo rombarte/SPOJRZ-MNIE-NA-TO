@@ -1,15 +1,16 @@
 ﻿<?php
-	// CO POKAZAĆ? SELECT FROM VIEW, UPDATE VIEW + REAL ESCAPE STRING //
 
-	require "konfiguracja.dat";
+	require "../konfiguracja.dat";
+	
 	session_start();
 
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
-
+	mysqli_set_charset($baza_polaczenie, "utf8");
+	
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
-		header('Location: pozwolenie.php');
+		header('Location: ../pozwolenie.php');
 	}
 	
 	// Dane pobrane poprzez POST
@@ -19,6 +20,7 @@
 	// Wyślij zapytanie o poprawność adresu komputera
 	$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT komputer_status FROM komputer WHERE komputer_adres='".$_SERVER['REMOTE_ADDR']."'");
 	$zapytanie_wiersz = mysqli_fetch_row($zapytanie_rezultat);
+	
 	mysqli_query($baza_polaczenie, "UPDATE `komputer` SET komputer_data=NOW() WHERE komputer_adres='".$_SERVER['REMOTE_ADDR']."'");
 	
 	if (count($zapytanie_wiersz) == 1) {
@@ -44,12 +46,14 @@
 		else {
 			$_SESSION['id'] = $zapytanie_wiersz[0];
 			$_SESSION['username'] = $uzytkownik_login;
+			
 			mysqli_query($baza_polaczenie, "UPDATE widok_logowanie SET logowanie_status=0 WHERE uzytkownik_login='".$uzytkownik_login."'");
 			mysqli_query($baza_polaczenie, "INSERT INTO uzytkownik_komputer (uzytkownik_komputer_id1, uzytkownik_komputer_id2) VALUES((SELECT uzytkownik_id FROM uzytkownik WHERE uzytkownik_login='".$uzytkownik_login."'),(SELECT komputer_id FROM komputer WHERE komputer_adres='".$_SERVER['REMOTE_ADDR']."'))");
 			mysqli_query($baza_polaczenie, "INSERT IGNORE INTO komputer (`komputer_id`, `komputer_adres`, `komputer_opis`, `komputer_status`, `komputer_data`) VALUES (md5('" . $_SERVER["REMOTE_ADDR"] . "'),'" . $_SERVER["REMOTE_ADDR"] . "','DODANY AUTOMATYCZNIE',7,NOW());");
 			header('Location: kanciapa.php');
 		}
 	}
+	
 	else {
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT uzytkownik_id FROM widok_logowanie WHERE uzytkownik_login='".$uzytkownik_login."'");
 		$zapytanie_wiersz = mysqli_fetch_row($zapytanie_rezultat);
@@ -62,4 +66,5 @@
 		}
 	}
 	mysqli_close($baza_polaczenie);
+	
 ?>

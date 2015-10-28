@@ -1,7 +1,7 @@
 <?php
-
+	require "../konfiguracja.dat";
+	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to';
 	$zawartosc_menu = '<a href="rejestracja.php" class="bar-button">Rejestracja</a>
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Zaloguj się na swoje konto użytkownika, aby rozpocząć';

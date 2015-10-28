@@ -1,26 +1,27 @@
 <?php
 
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to';
+	$nazwa_aplikacji = 'Spójrz mnie na to!';
 	$zawartosc_menu = '<a href="mailto:poczta@rombarte.pl" class="bar-button">Kontakt</a>';
 	$rozkaz_menu = 'Zainstaluj skrypt na swoim serwerze';
 	$tekst_powiadomienia_niepowodzenie = 'Wprowadzone dane uniemożliwiają połączenie się z bazą danych';
-	$tekst_powiadomienia_sukces = 'Skrypt został poprawnie zainstalowany na twoim serwerze. <a href="logowanie.php">Zaloguj się</a>';
+	$tekst_powiadomienia_sukces = 'Skrypt został poprawnie zainstalowany na twoim serwerze. <a href="kanciapa/logowanie.php">Zaloguj się</a>';
 	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
 	
 	// Wczytuję szablon z pliku
 	$szablon = file_get_contents('szablon/instalacja.html');
 	$zawartosc_formularz = '<form action="uruchom-instalacja.php" method="post" class="centered">
-					<p>Nazwa serwera </p>
+					<p title="Podaj nazwę, która będzie pojawiać się w nagłówku">Nazwa strony</p>
+					<input type="text" name="strona_nazwa" required>
+					<p title="Zazwyczaj należy wpisać po prostu słowo LOCALHOST">Nazwa serwera </p>
 					<input type="text" name="baza_serwer" required>
-					<p>Nazwa użytkownika</p>
+					<p title="Dotyczy użytkownika bazy danych">Nazwa użytkownika</p>
 					<input type="text" name="baza_uzytkownik" required>
-					<p>Hasło użytkownika</p>
+					<p title="Dotyczy użytkownika bazy danych">Hasło użytkownika</p>
 					<input type="password" name="baza_haslo" required>
-					<p>Nazwa bazy danych</p>
+					<p title="Dotyczy użytkownika bazy danych">Nazwa bazy danych</p>
 					<input type="text" name="baza_nazwa" required>
-					<p>Spersonalizowana nazwa strony</p>
-					<input type="text" name="strona_nazwa" required><br>
+					<br>
 					<input type="submit" value="Zainstaluj">
 				</form>';
 	
@@ -59,4 +60,5 @@
 	
 	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
 	echo $szablon;
+	
 ?>

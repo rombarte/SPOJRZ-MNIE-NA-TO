@@ -1,14 +1,17 @@
 <?php
-
+	require "konfiguracja.dat";
+	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to';
-	$rozkaz_menu = 'Brak dostępu';
-	$tekst_powiadomienia = 'Błąd bazy danych, brak strony lub nie masz uprawnień do jej przeglądania';	
+	$zawartosc_menu = '<a href="mailto:poczta@rombarte.pl" class="bar-button">Kontakt</a>';
+	$rozkaz_menu = 'Brak dostępu do żądanego zasobu';
+	$tekst_powiadomienia = 'Błąd bazy danych, brak żądanego zasobu lub nie masz uprawnień do jego przeglądania';
+	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
 	
 	$szablon = file_get_contents('szablon/pozwolenie.html');
 
 	// Wyświetlam stronę z szablonu
 	$szablon = preg_replace('/{NazwaAplikacji}/', $nazwa_aplikacji, $szablon);
+	$szablon = preg_replace('/{ZawartoscMenu}/', $zawartosc_menu, $szablon);
 	$szablon = preg_replace('/{RozkazMenu}/', $rozkaz_menu, $szablon);
 	
 	$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);

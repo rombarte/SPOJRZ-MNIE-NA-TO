@@ -1,8 +1,9 @@
 ﻿<?php
+	require "../konfiguracja.dat";
+	
 	session_start();
 	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to!';
 	if (isset($_SESSION['id'])) {
 		$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
@@ -17,13 +18,13 @@
 	}
 	$rozkaz_menu = 'Przeczytaj regulamin korzystania z programu';
 	$tekst_regulaminu = '<h1>Użytkownikowi nie wolno:</h1>
-    <li>Próbować robić niedozwolone rzeczy</li>
-    <li>Próbować łamać zabezpieczenia tego serwisu</li>
-    <li>Śmiać się z niedoskonałości tego portalu</li>
-    <h1>Użytkownikowi ma prawo:</h1>
-    <li>Korzystać z tego serwisu w należyty sposób</li>
-    <li>Cieszyć się każdą chwilą obcowania z tym produktem</li>
-    <li>Liczyć na to, że jego komputer nie wybuchnie</li>';
+		<li>Próbować robić niedozwolone rzeczy</li>
+		<li>Próbować łamać zabezpieczenia tego serwisu</li>
+		<li>Śmiać się z niedoskonałości tego portalu</li>
+		<h1>Użytkownikowi ma prawo:</h1>
+		<li>Korzystać z tego serwisu w należyty sposób</li>
+		<li>Cieszyć się każdą chwilą obcowania z tym produktem</li>
+		<li>Liczyć na to, że jego komputer nie wybuchnie</li>';
 	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
 	
 	$szablon = file_get_contents('szablon/regulamin.html');
@@ -39,4 +40,5 @@
 
 	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
 	echo $szablon;
+	
 ?>

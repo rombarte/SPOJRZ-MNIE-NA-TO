@@ -1,5 +1,5 @@
 ﻿<?php
-	require "konfiguracja.dat";
+	require "../konfiguracja.dat";
 	
 	// Definiuję podstawowe zmienne tekstowe
 	$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
@@ -23,7 +23,7 @@
 	
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
-		header("Location: logowanie.php?failure");
+		header("Location: logowanie.php");
 	}
 	
 	// Wyświetlam stronę z szablonu
@@ -34,7 +34,7 @@
 	$szablon = preg_replace('/{RozkazMenu}/', $rozkaz_menu, $szablon);
 	
 	if ($tekst_powiadomienia != '') {
-		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
+		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message success centered">', $szablon);
 		$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia, $szablon);
 		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
 	}
@@ -52,15 +52,13 @@
 	$szablon = preg_replace('/{BLOK:KOMPUTERY}/', '', $szablon);
 	$szablon = preg_replace('/{\/BLOK:KOMPUTERY}/', '', $szablon);
 	
-	require "konfiguracja.dat";
-	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
 	mysqli_set_charset($baza_polaczenie, "utf8");
 
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
-		header('Location: pozwolenie.php');
+		header('Location: ../pozwolenie.php');
 	}
 	
 	// Pobieram listę linków należących do użytkownika
@@ -77,9 +75,19 @@
 					<td>Opcje</td>
 			    </tr>';
 	
-	$katalog = substr($_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'], 0, -12);
+	$katalog = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	$pozycja = strpos($katalog, '?');
+	if ($pozycja > 0) $katalog = substr($katalog, 0, $pozycja);
+	$pozycja = strpos($katalog, 'kanciapa.php');
+	if ($pozycja > 0) $katalog = substr($katalog, 0, $pozycja);
+	$katalog = substr($katalog, 0, -9);
+	
+	//echo $katalog; die();
+	
+	
+	
 	for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
-		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog."?p=".$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";
+		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog.$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";
 	}
 	
 	$lista_linkow=$lista_linkow.'</table> 
@@ -104,9 +112,7 @@
 			   </form>
 			</table>';
 	
-	// Jeżeli jestem adminem, to pobierz listę komputerów
-	// TO TRZEBA DOROBIĆ !!!
-	if ($_SESSION['username']=='rombarte'){
+	if ($_SESSION['username']=='admin'){
 		
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT * FROM komputer WHERE (SELECT uzytkownik_ranga FROM uzytkownik WHERE uzytkownik_id=md5('".$_SESSION['username']."'))=1");
 		$zapytanie_wiersz = mysqli_fetch_all($zapytanie_rezultat);
@@ -184,7 +190,7 @@
 			   	</form>';
 	}
 	
-	// Jeżeli nie jestem adminem, ukryj listę komputerów
+	// Jeżeli nie jestem adminem, nie wyświetlaj listy komputerów
 	else {
 		$szablon = preg_replace('/{NaglowekKomputery}/', '', $szablon);
 		$lista_komputerow='';
@@ -197,4 +203,5 @@
 
 	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
 	echo $szablon;
+	
 ?>

@@ -8,7 +8,7 @@
 		header("Location: logowanie.php");
 	}
 	
-	require "konfiguracja.dat";
+	require "../konfiguracja.dat";
 		
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -61,5 +61,6 @@
 		echo $lista_linkow;
 	}
 	
-	echo "</table></body></html>"
+	echo "</table></body></html>";
+	
 ?>

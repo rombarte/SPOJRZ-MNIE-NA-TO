@@ -1,7 +1,7 @@
 <?php
-
+	require "../konfiguracja.dat";
+	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to';
 	$zawartosc_menu = '<a href="logowanie.php" class="bar-button">Logowanie</a>
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Zarejestruj nowe konto, aby rozpocząć zabawę';
@@ -36,7 +36,7 @@
 		$szablon = preg_replace('/{ZawartoscFormularz}/', $zawartosc_formularz, $szablon);
 		
 		if (isset($_GET['failure'])) {
-			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message error centered">', $szablon);
+			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
 			$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_blad, $szablon);
 			$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
 			
@@ -65,4 +65,5 @@
 		$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
 		echo $szablon;
 	}
+	
 ?>

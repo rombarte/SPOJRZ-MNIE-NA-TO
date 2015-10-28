@@ -1,2 +1,1 @@
-<?php $baza_serwer = "localhost"; $baza_uzytkownik = "rombarte"; $baza_haslo = "rombarte"; $baza_nazwa = "kakuro";
-		$website_name = "Kakuro Animoto!" ?>
+<?php $baza_serwer = "localhost"; $baza_uzytkownik = "root"; $baza_haslo = "postgres"; $baza_nazwa = "modRewrite"; $nazwa_aplikacji = "mod_rewrite"; ?>

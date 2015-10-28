@@ -1,14 +1,14 @@
 <?php
-
+	require "../konfiguracja.dat";
+	
 	// Definiuję podstawowe zmienne tekstowe
-	$nazwa_aplikacji = 'Spójrz mnie na to!';
 	$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="kanciapa.php" class="bar-button">Kanciapa</a>
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Edytuj swoje konto, jeżeli tego potrzebujesz';
 	$tekst_powiadomienia_blad = 'Wprowadzone dane są już zajęte!';
-	$tekst_powiadomienia_sukces = 'Dane zostały dodane poprawnie.';
+	$tekst_powiadomienia_sukces = 'Dane zostały zmienione poprawnie.';
 	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
 	
 	// Startuję sesję potrzebną
@@ -26,10 +26,11 @@
 	$zawartosc_formularz = '<form action="uruchom-edycja.php" method="post" class="centered">
 				<p>Nazwa użytkownika</p>
 				<input type="text" name="uzytkownik_nazwa" placeholder="' . $_SESSION['username'] . '" disabled>
-				<p>Hasło użytkownika</p>
-				<input type="password" name="uzytkownik_haslo" required>
-				<p>Adres e-mail</p>
-				<input type="text" name="uzytkownik_mail" required><br>
+				<p title="Podaj nowe hasło do konta">Hasło użytkownika</p>
+				<input type="password" name="uzytkownik_haslo">
+				<p title="Podaj nowy adres e-mail">Adres e-mail</p>
+				<input type="text" name="uzytkownik_mail">
+				<br>
 				<input type="checkbox" name="uzytkownik_zgoda" checked disabled> Akceptuję regulamin korzystania z serwisu<br>
 				<input type="submit" value="Edytuj konto">
 			</form>';

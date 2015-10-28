@@ -1,0 +1,3 @@
+Options -Indexes
+DirectoryIndex kanciapa.php logowanie.php rejestracja.php
+RewriteEngine Off

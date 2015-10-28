@@ -1,6 +1,6 @@
 ﻿<?php
 	
-	require "konfiguracja.dat";
+	require "../konfiguracja.dat";
 	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -8,7 +8,7 @@
 	
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
-		header('Location: kanciapa.php?failure');
+		header('Location: ../pozwolenie.php');
 	}
 	
 	session_start();
@@ -63,15 +63,24 @@
 	}
 	
 	if (isset($_POST['panic'])) {
-		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "CALL panic_start()");
-		header('Location: kanciapa.php?success&panic');
+		mysqli_query($baza_polaczenie, "CALL panic_start()");
+		mysqli_close($baza_polaczenie);
+		$_SESSION["powiadomienie"] = 'POPRAWNE WYKONANIE PROCEDURY PANIC';
+		header('Location: kanciapa.php?success');
 		die();
 	}
 	
-	if (mysqli_error($baza_polaczenie) != '') $_SESSION["powiadomienie"] = mysqli_error($baza_polaczenie); //"Nie można wykonać tej operacji";
-	else $_SESSION["powiadomienie"] = 'Operacja wykonała się poprawnie';
 	
-	mysqli_close($baza_polaczenie);
+	if (mysqli_error($baza_polaczenie) != '') {
+		mysqli_close($baza_polaczenie);
+		$_SESSION["powiadomienie"] = "Nie można wykonać tej operacji";
+		header('Location: kanciapa.php?failure');
+	}
 	
-	header('Location: kanciapa.php?success');
+	else {
+		mysqli_close($baza_polaczenie);
+		$_SESSION["powiadomienie"] = 'Operacja wykonała się poprawnie';
+		header('Location: kanciapa.php?success');
+	}
+	
 ?>

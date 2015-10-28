@@ -142,3 +142,37 @@ p {
 a {
 	color: white;
 }
+
+table {
+	width: 100%;	
+}
+
+table, td, th {   
+    	border: 2px solid black; 
+	border-collapse: collapse;
+	font-size: 2.0rem;
+	text-align: center;
+}
+
+.noborder, .noborder th, .noborder td {
+	background: gray;
+	border: 0px solid black;
+	border-collapse: initial;
+	margin: 20px 0;
+	padding-top: 1.0rem;
+}
+
+.panic {
+	background-color: red;
+	width: 500px;
+	border-radius: 500px;
+	padding: 90px 0 110px 0;
+	color: white;
+	
+}
+
+.panic-form{
+	width: 100%;
+	text-align: center;
+	
+}
