@@ -52,6 +52,9 @@
 	$szablon = preg_replace('/{BLOK:KOMPUTERY}/', '', $szablon);
 	$szablon = preg_replace('/{\/BLOK:KOMPUTERY}/', '', $szablon);
 	
+	$szablon = preg_replace('/{BLOK:UZYTKOWNICY}/', '', $szablon);
+	$szablon = preg_replace('/{\/BLOK:UZYTKOWNICY}/', '', $szablon);
+	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
 	mysqli_set_charset($baza_polaczenie, "utf8");
@@ -183,7 +186,46 @@
 							</td>
 					    </tr>
 				   	</form>
-				</table>
+				</table>';
+				
+		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT uzytkownik_login, uzytkownik_email, uzytkownik_ranga, uzytkownik_opis, logowanie_data, logowanie_status, uzytkownik_id FROM uzytkownik WHERE (SELECT uzytkownik_ranga FROM uzytkownik WHERE uzytkownik_id=md5('".$_SESSION['username']."'))=1");
+		$zapytanie_wiersz = mysqli_fetch_all($zapytanie_rezultat);
+		
+		// Wypełniam listę użytkownikami z bazy danych
+		$info_przyciski=array();
+		for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
+			$info_przyciski[$i] = $zapytanie_wiersz[$i][0];
+		}
+		
+		$szablon = preg_replace('/{NaglowekUzytkownicy}/', 'Wyświetl listę zarejestrowanych użytkowników', $szablon);
+		
+		$lista_uzytkownikow='<table>
+					<tr>
+						<td>Numer</td>
+						<td>Nazwa</td> 
+						<td>E-mail</td>
+						<td>Ranga</td>
+						<td>Opis</td>
+						<td>Data logowania</td>
+						<td>Status logowania</td>
+						<td>Opcje</td>
+						<td>Opcje</td>
+					</tr>';
+		for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
+			$lista_uzytkownikow = $lista_uzytkownikow."<tr><td>".$i."</td><td>".$zapytanie_wiersz[$i][0]."</td><td>".$zapytanie_wiersz[$i][1]."</td><td>".(($zapytanie_wiersz[$i][2] == 1) ? "Admin" : "User")."</td><td>".$zapytanie_wiersz[$i][3]."</td><td>".$zapytanie_wiersz[$i][4]."</td><td>".(($zapytanie_wiersz[$i][5] < 3) ? "Odblokowany" : "Zablokowany")."</td>
+				
+				<td><form action='uruchom-kanciapa-uzytkownik.php' method='post'><input type='hidden' name='zablokuj' value='".$zapytanie_wiersz[$i][6]."' />
+				<input type='submit' value='Zablokuj' />
+				</form></td>
+				
+				<td><form action='uruchom-kanciapa-uzytkownik.php' method='post'><input type='hidden' name='odblokuj' value='".$zapytanie_wiersz[$i][6]."' />
+				<input type='submit' value='Odblokuj' />
+				</form></td>
+				
+				</tr>\n";
+		}
+		
+		$lista_uzytkownikow=$lista_uzytkownikow.'</table> 
 				<form action="uruchom-kanciapa-komputer.php" method="post" class=\'panic-form\'>
 					<input type="hidden" name="panic">
 					<input type="submit" value="PANIC BUTTON" id="panic" class="panic" onmouseover="alert(\'Klikając ten przycisk zablokujesz wszystkie widoczne komputery i użytkowników nie będących adminami.\')">
@@ -194,12 +236,16 @@
 	else {
 		$szablon = preg_replace('/{NaglowekKomputery}/', '', $szablon);
 		$lista_komputerow='';
+		
+		$szablon = preg_replace('/{NaglowekUzytkownicy}/', '', $szablon);
+		$lista_uzytkownikow='';
 	}
 	
 	mysqli_close($baza_polaczenie);
 		
 	$szablon = preg_replace('/{ZawartoscLinki}/', $lista_linkow, $szablon);
 	$szablon = preg_replace('/{ZawartoscKomputery}/', $lista_komputerow, $szablon);
+	$szablon = preg_replace('/{ZawartoscUzytkownicy}/', $lista_uzytkownikow, $szablon);
 
 	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
 	echo $szablon;
