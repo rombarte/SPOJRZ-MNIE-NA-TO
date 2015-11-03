@@ -13,8 +13,10 @@
 	
 	session_start();
 	
-	// Wykonaj operacje
+	// Weryfikacja sesji
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
 	
+	// Wykonaj operacje
 	if (isset($_POST['odblokuj'])) {
 		$uzytkownik_id = mysqli_real_escape_string($baza_polaczenie, $_POST['odblokuj']);
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET logowanie_status=0 WHERE uzytkownik_id='".$uzytkownik_id."'");

@@ -11,6 +11,7 @@
 	
 	// Startuję sesję potrzebną do sprawdzenia ilości błędnych prób logowania
 	session_start();
+	
 	$szablon = file_get_contents('szablon/logowanie.html');
 	$zawartosc_formularz = '<form action="uruchom-logowanie.php" method="post" class="centered">
 				<p>Nazwa użytkownika</p>

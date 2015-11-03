@@ -4,6 +4,9 @@
 	
 	session_start();
 	
+	// Weryfikacja sesji
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	
 	// Utwórz połączenie
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
 	mysqli_set_charset($baza_polaczenie, "utf8");

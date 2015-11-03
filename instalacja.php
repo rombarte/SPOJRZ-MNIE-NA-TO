@@ -31,22 +31,24 @@
 	$szablon = preg_replace('/{RozkazMenu}/', $rozkaz_menu, $szablon);
 	$szablon = preg_replace('/{ZawartoscFormularz}/', $zawartosc_formularz, $szablon);
 	
-	if (isset($_GET['failure'])) {
-		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
-		$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_niepowodzenie, $szablon);
-		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+	if (isset($_GET['status'])) {
+		if ($_GET['status'] == 'failure') {
+			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
+			$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_niepowodzenie, $szablon);
+			$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+			
+			$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
+			$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
+		}
 		
-		$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
-		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
-	}
-	
-	else if (isset($_GET['success'])) {
-		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message success centered">', $szablon);
-		$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_sukces, $szablon);
-		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
-		
-		$szablon = preg_replace('/{BLOK:FORMULARZ}/', '<div class="hided">', $szablon);
-		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '</div>', $szablon);
+		if ($_GET['status'] == 'success') {
+			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message success centered">', $szablon);
+			$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_sukces, $szablon);
+			$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+			
+			$szablon = preg_replace('/{BLOK:FORMULARZ}/', '<div class="hided">', $szablon);
+			$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '</div>', $szablon);
+		}
 	}
 	
 	else {

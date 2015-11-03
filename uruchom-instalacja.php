@@ -6,7 +6,7 @@
 	
 	// Testuj połączenie
 	if (!$baza_polaczenie) {
-		header("Location: instalacja.php?failure");
+		header("Location: instalacja.php?status=failure");
 	}
 	
 	else {
@@ -62,7 +62,7 @@
 		//unlink('szablon/instalacja.html');
 		//unlink('uruchom-instalacja.php');
 		
-		header("Location: instalacja.php?success");
+		header("Location: instalacja.php?status=success");
 	}
 	
 ?>

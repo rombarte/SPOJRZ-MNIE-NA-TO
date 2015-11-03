@@ -3,7 +3,7 @@
 	require "../konfiguracja.dat";
 	
 	session_start();
-
+	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
 	mysqli_set_charset($baza_polaczenie, "utf8");
@@ -51,6 +51,11 @@
 			mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET logowanie_data=NOW() WHERE uzytkownik_login='".$uzytkownik_login."'");
 			mysqli_query($baza_polaczenie, "INSERT INTO uzytkownik_komputer (uzytkownik_komputer_id1, uzytkownik_komputer_id2) VALUES((SELECT uzytkownik_id FROM uzytkownik WHERE uzytkownik_login='".$uzytkownik_login."'),(SELECT komputer_id FROM komputer WHERE komputer_adres='".$_SERVER['REMOTE_ADDR']."'))");
 			mysqli_query($baza_polaczenie, "INSERT IGNORE INTO komputer (`komputer_id`, `komputer_adres`, `komputer_opis`, `komputer_status`, `komputer_data`) VALUES (md5('" . $_SERVER["REMOTE_ADDR"] . "'),'" . $_SERVER["REMOTE_ADDR"] . "','DODANY AUTOMATYCZNIE',7,NOW());");
+			
+			// Regeneruj identyfikator sesji
+			session_regenerate_id();
+			$_SESSION['sid'] = session_id();
+	
 			header('Location: kanciapa.php');
 		}
 	}

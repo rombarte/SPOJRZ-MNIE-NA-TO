@@ -13,6 +13,9 @@
 	
 	session_start();
 	
+	// Weryfikacja sesji
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	
 	// Wykonaj operacje
 	if (isset($_POST['zmien'])){
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT komputer_status FROM komputer WHERE komputer_id='".$_POST['zmien']."';");

@@ -14,6 +14,9 @@
 	// Startuję sesję potrzebną
 	session_start();
 	
+	// Weryfikacja sesji
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
 		header("Location: logowanie.php");

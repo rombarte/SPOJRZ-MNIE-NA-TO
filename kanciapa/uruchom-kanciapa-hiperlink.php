@@ -13,6 +13,9 @@
 	
 	session_start();
 	
+	// Weryfikacja sesji
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	
 	// Wykonaj operacje
 	if (isset($_POST['usun'])) $zapytanie_rezultat = mysqli_query($baza_polaczenie, "DELETE FROM hiperlink WHERE hiperlink_id='".$_POST['usun']."';");
 	if (isset($_POST['hiperlink'])) {

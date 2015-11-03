@@ -14,6 +14,9 @@
 	// Startuję sesję potrzebną do sprawdzenia ilości błędnych prób logowania
 	session_start();
 	
+	// Weryfikacja sesji
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	
 	if (isset($_SESSION["powiadomienie"])) {
 		$tekst_powiadomienia = $_SESSION["powiadomienie"];
 		unset($_SESSION["powiadomienie"]);
