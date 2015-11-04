@@ -1,1 +1,7 @@
-<?php $baza_serwer = "localhost"; $baza_uzytkownik = "root"; $baza_haslo = "postgres"; $baza_nazwa = "modRewrite"; $nazwa_aplikacji = "mod_rewrite"; ?>
+<?php
+			$baza_serwer = "localhost";
+			$baza_uzytkownik = "root";
+			$baza_haslo = "postgres";
+			$baza_nazwa = "listopad";
+			$nazwa_aplikacji = "skraczacz PRO";
+			?>

@@ -32,14 +32,12 @@
 		mysqli_close($baza_polaczenie);
 		$_SESSION["powiadomienie"] = "Nie można wykonać tej operacji";
 		header('Location: kanciapa.php?failure');
-		exit();
 	}
 	
 	else {
 		mysqli_close($baza_polaczenie);
 		$_SESSION["powiadomienie"] = 'Operacja wykonała się poprawnie';
 		header('Location: kanciapa.php?success');
-		exit();
 	}
 	
 ?>

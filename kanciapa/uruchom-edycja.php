@@ -29,7 +29,18 @@
 			mysqli_query($baza_polaczenie, 'UPDATE uzytkownik SET uzytkownik_password = sha1("'.$uzytkownik_haslo.'") WHERE uzytkownik_login="'.$_SESSION['username'].'"');
 	
 		}
+
+		if ($_FILES['awatar']['tmp_name'] != ''){
+			$uchwyt = fopen($_FILES['awatar']['tmp_name'], "r");
+			$rozmiar = $_FILES['awatar']['size'];
+			$zawartosc = base64_encode(fread($uchwyt, $rozmiar));
+			fclose($uchwyt);
+			$_SESSION['awatar'] = $zawartosc;
+			
+			mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET awatar = '" . $zawartosc . "' WHERE uzytkownik_login='" . $_SESSION['username'] . "'");
+		}
 		
+		mysqli_close($baza_polaczenie);
 		header("Location: edycja.php?success");
 		exit();
 	}

@@ -27,7 +27,6 @@
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (isset($_SESSION['id'])) {
 		header("Location: kanciapa.php");
-		exit();
 	}
 	
 	// Wyświetlam stronę z szablonu

@@ -9,7 +9,6 @@
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
 		header("Location: logowanie.php");
-		exit();
 	}
 	
 	require "../konfiguracja.dat";
@@ -21,7 +20,6 @@
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
 		header('Location: logowanie.php?failure');
-		exit();
 	}
 	
 	echo "<html><head><meta charset='utf-8'><style>table, th, td { border: 1px solid black; }</style></head><body>";

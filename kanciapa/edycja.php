@@ -2,7 +2,8 @@
 	require "../konfiguracja.dat";
 	
 	// Definiuję podstawowe zmienne tekstowe
-	$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
+	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
+			<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="kanciapa.php" class="bar-button">Kanciapa</a>
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
@@ -15,10 +16,7 @@
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) {
-		header("Location: uruchom-wylogowanie.php");
-		exit();
-	}
+	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
 	
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
@@ -26,11 +24,14 @@
 		exit();
 	}
 	
+	if ($_SESSION['awatar'] != '') $zawartosc_menu = preg_replace('/{Awatar}/', $_SESSION['awatar'], $zawartosc_menu);
+	else $zawartosc_menu = preg_replace('/{Awatar}/', 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNg+M9QDwADgQF/e5IkGQAAAABJRU5ErkJggg==', $zawartosc_menu);
+	
 	$zawartosc_menu = preg_replace('/{NazwaUzytkownika}/', $_SESSION['username'], $zawartosc_menu);
 	$zawartosc_menu = preg_replace('/{AdresIP}/', $_SERVER['REMOTE_ADDR'], $zawartosc_menu);
 		
 	$szablon = file_get_contents('szablon/edycja.html');
-	$zawartosc_formularz = '<form action="uruchom-edycja.php" method="post" class="centered">
+	$zawartosc_formularz = '<form action="uruchom-edycja.php" enctype="multipart/form-data" method="post" class="centered">
 				<p>Nazwa użytkownika</p>
 				<input type="text" name="uzytkownik_nazwa" placeholder="' . $_SESSION['username'] . '" disabled>
 				<p title="Podaj nowe hasło do konta">Hasło użytkownika</p>
@@ -38,6 +39,8 @@
 				<p title="Podaj nowy adres e-mail">Adres e-mail</p>
 				<input type="text" name="uzytkownik_mail">
 				<br>
+				<input type="file" name="awatar">
+				<br><br>
 				<input type="checkbox" name="uzytkownik_zgoda" checked disabled> Akceptuję regulamin korzystania z serwisu<br>
 				<input type="submit" value="Edytuj konto">
 			</form>';

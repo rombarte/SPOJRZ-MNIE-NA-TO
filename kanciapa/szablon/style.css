@@ -26,6 +26,13 @@ nav, footer {
 	width: 100%;
 }
 
+nav img{
+	box-sizing: border-box;
+	float: left;
+	display: block;
+	height: 100%;
+}
+
 .bar-button {
 	box-sizing: border-box;
 	color: white;

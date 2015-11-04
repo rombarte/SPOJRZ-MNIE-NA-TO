@@ -5,10 +5,16 @@
 	
 	// Definiuję podstawowe zmienne tekstowe
 	if (isset($_SESSION['id'])) {
-		$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
+		$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
+			<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="edycja.php" class="bar-button">Profil</a>
 			<a href="kanciapa.php" class="bar-button">Kanciapa</a>';
+			
+		if ($_SESSION['awatar'] != '') $zawartosc_menu = preg_replace('/{Awatar}/', $_SESSION['awatar'], $zawartosc_menu);
+		else $zawartosc_menu = preg_replace('/{Awatar}/', 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNg+M9QDwADgQF/e5IkGQAAAABJRU5ErkJggg==', $zawartosc_menu);
+	
+	
 		$zawartosc_menu = preg_replace('/{NazwaUzytkownika}/', $_SESSION['username'], $zawartosc_menu);
 		$zawartosc_menu = preg_replace('/{AdresIP}/', $_SERVER['REMOTE_ADDR'], $zawartosc_menu);
 	}

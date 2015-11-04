@@ -2,7 +2,8 @@
 	require "../konfiguracja.dat";
 	
 	// Definiuję podstawowe zmienne tekstowe
-	$zawartosc_menu = '<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
+	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
+			<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="edycja.php" class="bar-button">Profil</a>
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
@@ -13,7 +14,6 @@
 	
 	// Startuję sesję potrzebną do sprawdzenia ilości błędnych prób logowania
 	session_start();
-	
 	// Weryfikacja sesji
 	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
 	
@@ -27,11 +27,14 @@
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
 		header("Location: logowanie.php");
-		exit();
 	}
 	
 	// Wyświetlam stronę z szablonu
 	$szablon = preg_replace('/{NazwaAplikacji}/', $nazwa_aplikacji, $szablon);
+	
+	if ($_SESSION['awatar'] != '') $zawartosc_menu = preg_replace('/{Awatar}/', $_SESSION['awatar'], $zawartosc_menu);
+	else $zawartosc_menu = preg_replace('/{Awatar}/', 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNg+M9QDwADgQF/e5IkGQAAAABJRU5ErkJggg==', $zawartosc_menu);
+	
 	$zawartosc_menu = preg_replace('/{NazwaUzytkownika}/', $_SESSION['username'], $zawartosc_menu);
 	$zawartosc_menu = preg_replace('/{AdresIP}/', $_SERVER['REMOTE_ADDR'], $zawartosc_menu);
 	$szablon = preg_replace('/{ZawartoscMenu}/', $zawartosc_menu, $szablon);
@@ -66,7 +69,6 @@
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
 		header('Location: ../pozwolenie.php');
-		exit();
 	}
 	
 	// Pobieram listę linków należących do użytkownika
@@ -89,6 +91,10 @@
 	$pozycja = strpos($katalog, 'kanciapa.php');
 	if ($pozycja > 0) $katalog = substr($katalog, 0, $pozycja);
 	$katalog = substr($katalog, 0, -9);
+	
+	//echo $katalog; die();
+	
+	
 	
 	for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
 		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog.$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";

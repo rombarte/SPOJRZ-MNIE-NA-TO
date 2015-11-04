@@ -11,16 +11,16 @@
 	// Wczytuję szablon z pliku
 	$szablon = file_get_contents('szablon/instalacja.html');
 	$zawartosc_formularz = '<form action="uruchom-instalacja.php" method="post" class="centered">
-					<p title="Podaj nazwę, która będzie pojawiać się w nagłówku">Nazwa strony</p>
-					<input type="text" name="strona_nazwa" required>
-					<p title="Zazwyczaj należy wpisać po prostu słowo LOCALHOST">Nazwa serwera </p>
-					<input type="text" name="baza_serwer" required>
-					<p title="Dotyczy użytkownika bazy danych">Nazwa użytkownika</p>
-					<input type="text" name="baza_uzytkownik" required>
-					<p title="Dotyczy użytkownika bazy danych">Hasło użytkownika</p>
-					<input type="password" name="baza_haslo" required>
-					<p title="Dotyczy użytkownika bazy danych">Nazwa bazy danych</p>
-					<input type="text" name="baza_nazwa" required>
+					<p>Nazwa strony</p>
+					<input type="text" name="strona_nazwa" title="Podaj nazwę, która będzie pojawiać się w nagłówku" required>
+					<p>Nazwa serwera </p>
+					<input type="text" name="baza_serwer" title="Zazwyczaj należy wpisać po prostu słowo LOCALHOST" required>
+					<p>Nazwa użytkownika</p>
+					<input type="text" name="baza_uzytkownik" title="Dotyczy użytkownika bazy danych" required>
+					<p>Hasło użytkownika</p>
+					<input type="password" name="baza_haslo" title="Dotyczy użytkownika bazy danych" required>
+					<p>Nazwa bazy danych</p>
+					<input type="text" name="baza_nazwa" title="Dotyczy użytkownika bazy danych" required>
 					<br>
 					<input type="submit" value="Zainstaluj">
 				</form>';

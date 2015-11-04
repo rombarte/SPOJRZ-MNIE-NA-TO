@@ -15,7 +15,7 @@
 		mysqli_query($baza_polaczenie, "START TRANSACTION");
 		
 		// Utwórz tabele w bazie danych
-		mysqli_query($baza_polaczenie, "CREATE TABLE uzytkownik (uzytkownik_id VARCHAR(32) PRIMARY KEY,uzytkownik_email VARCHAR(100) NOT NULL,uzytkownik_login VARCHAR(100) NOT NULL,uzytkownik_haslo CHAR(40) NOT NULL,uzytkownik_ranga INT(8) NOT NULL,uzytkownik_opis VARCHAR(200) NOT NULL,logowanie_status INT(8) NOT NULL,logowanie_data DATETIME NOT NULL) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
+		mysqli_query($baza_polaczenie, "CREATE TABLE uzytkownik (uzytkownik_id VARCHAR(32) PRIMARY KEY,uzytkownik_email VARCHAR(100) NOT NULL,uzytkownik_login VARCHAR(100) NOT NULL,uzytkownik_haslo CHAR(40) NOT NULL,uzytkownik_ranga INT(8) NOT NULL,uzytkownik_opis VARCHAR(200) NOT NULL,logowanie_status INT(8) NOT NULL,logowanie_data DATETIME NOT NULL, awatar MEDIUMBLOB NOT NULL) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
 		mysqli_query($baza_polaczenie, "CREATE TABLE komputer (komputer_id VARCHAR(32) PRIMARY KEY,komputer_adres VARCHAR(15) NOT NULL,komputer_opis VARCHAR(200) NOT NULL,komputer_status INT(8) NOT NULL,komputer_data DATETIME NOT NULL) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
 		mysqli_query($baza_polaczenie, "CREATE TABLE hiperlink (hiperlink_id VARCHAR(32) PRIMARY KEY,uzytkownik_id VARCHAR(32),hiperlink_adres VARCHAR(500) NOT NULL,hiperlink_cel VARCHAR(10) NOT NULL,hiperlink_status INT(8) NOT NULL,hiperlink_klikniecia INT(32) NOT NULL,hiperlink_data DATETIME NOT NULL, FOREIGN KEY (`uzytkownik_id`) REFERENCES uzytkownik (`uzytkownik_id`) ON DELETE CASCADE ON UPDATE CASCADE) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
 		mysqli_query($baza_polaczenie, "CREATE TABLE uzytkownik_komputer(uzytkownik_komputer_id1 VARCHAR(32) NOT NULL,uzytkownik_komputer_id2 VARCHAR(32) NOT NULL,FOREIGN KEY (`uzytkownik_komputer_id1`) REFERENCES uzytkownik (`uzytkownik_id`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`uzytkownik_komputer_id2`) REFERENCES komputer (`komputer_id`) ON DELETE CASCADE ON UPDATE CASCADE) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
@@ -30,7 +30,7 @@
 		else mysqli_query($baza_polaczenie, "COMMIT");
 			
 		// Utworz widoki
-		mysqli_query($baza_polaczenie, "CREATE VIEW widok_logowanie AS SELECT uzytkownik_id, uzytkownik_login, uzytkownik_haslo, logowanie_status FROM uzytkownik");
+		mysqli_query($baza_polaczenie, "CREATE VIEW widok_logowanie AS SELECT uzytkownik_id, uzytkownik_login, uzytkownik_haslo, logowanie_status, awatar FROM uzytkownik");
 		
 		// Utwórz procedury
 		mysqli_query($baza_polaczenie, "DELIMITER ;;");
