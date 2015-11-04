@@ -15,11 +15,15 @@
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	if ($_SESSION['sid'] != session_id()) {
+		header("Location: uruchom-wylogowanie.php");
+		exit();
+	}
 	
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
 		header("Location: logowanie.php");
+		exit();
 	}
 	
 	$zawartosc_menu = preg_replace('/{NazwaUzytkownika}/', $_SESSION['username'], $zawartosc_menu);

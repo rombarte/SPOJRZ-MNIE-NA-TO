@@ -14,6 +14,7 @@
 	// Testuj połączenie
 	if (!$baza_polaczenie) {
 		header("Location: ../pozwolenie.php");
+		exit();
 	}
 	
 	else {
@@ -30,6 +31,7 @@
 		}
 		
 		header("Location: edycja.php?success");
+		exit();
 	}
 	
 ?>

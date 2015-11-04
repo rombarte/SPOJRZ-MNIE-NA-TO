@@ -11,6 +11,7 @@
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
 		header('Location: ../pozwolenie.php');
+		exit();
 	}
 	
 	// Dane pobrane poprzez POST
@@ -42,6 +43,7 @@
 		
 		if ($zapytanie_wiersz[1] > 2) {
 			header('Location: logowanie.php?failure');
+			exit();
 		}
 		else {
 			$_SESSION['id'] = $zapytanie_wiersz[0];
@@ -57,6 +59,7 @@
 			$_SESSION['sid'] = session_id();
 	
 			header('Location: kanciapa.php');
+			exit();
 		}
 	}
 	
@@ -65,12 +68,15 @@
 		$zapytanie_wiersz = mysqli_fetch_row($zapytanie_rezultat);
 		if (count($zapytanie_wiersz) == 1) {
 			$zapytanie_rezultat = mysqli_query($baza_polaczenie, "UPDATE widok_logowanie SET logowanie_status=logowanie_status+1 WHERE uzytkownik_login='".$uzytkownik_login."'");
+			mysqli_close($baza_polaczenie);
 			header('Location: logowanie.php?failure');
+			exit();
 		}
 		else {
+			mysqli_close($baza_polaczenie);
 			header('Location: logowanie.php?failure');
+			exit();
 		}
 	}
-	mysqli_close($baza_polaczenie);
 	
 ?>
