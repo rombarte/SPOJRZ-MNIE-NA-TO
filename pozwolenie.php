@@ -5,7 +5,12 @@
 	$zawartosc_menu = '<a href="mailto:poczta@rombarte.pl" class="bar-button">Kontakt</a>';
 	$rozkaz_menu = 'Brak dostępu do żądanego zasobu';
 	$tekst_powiadomienia = 'Błąd bazy danych, brak żądanego zasobu lub nie masz uprawnień do jego przeglądania';
-	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
+	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
+			<div>
+				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>
+				<a href="#" onclick="tekstPrzywroc();">Tekst</a>
+				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
+			</div>';
 	
 	$szablon = file_get_contents('szablon/pozwolenie.html');
 
@@ -21,7 +26,7 @@
 	$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
 	$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
 
-	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
+	$szablon = preg_replace('/{ZawartoscStopki}/', $zawartosc_stopki, $szablon);
 	echo $szablon;
 
 ?>

@@ -33,7 +33,7 @@ nav img{
 	height: 100%;
 }
 
-.bar-button {
+footer a, nav a {
 	box-sizing: border-box;
 	color: white;
 	float: right;
@@ -45,16 +45,20 @@ nav img{
 	width: 15.0rem;
 }
 
-.bar-button:hover {
+nav a:hover, footer a:hover {
 	background-color: orange;
 }
 
-.bar-paragraph {
+footer p, nav p {
 	box-sizing: border-box;
 	color: white;
 	float: left;
 	display: inline;
 	padding: 2.0rem;
+}
+
+footer div {
+	float: right;
 }
 
 section.main {
@@ -94,7 +98,7 @@ h3 {
 	display: none;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=file] {
 	font-family: 'Patrick Hand', sans-serif;
 	font-size: 2.0rem;
 	margin: 3.0rem 0 3.0rem 0;
@@ -180,6 +184,6 @@ table, td, th {
 
 .panic-form{
 	width: 100%;
+	padding-top: 20px;
 	text-align: center;
-	
 }

@@ -10,7 +10,12 @@
 	$rozkaz_menu = 'Edytuj swoje konto, jeżeli tego potrzebujesz';
 	$tekst_powiadomienia_blad = 'Wprowadzone dane są już zajęte!';
 	$tekst_powiadomienia_sukces = 'Dane zostały zmienione poprawnie.';
-	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
+	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
+			<div>
+				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>
+				<a href="#" onclick="tekstPrzywroc();">Tekst</a>
+				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
+			</div>';
 	
 	// Startuję sesję potrzebną
 	session_start();
@@ -38,9 +43,9 @@
 				<input type="password" name="uzytkownik_haslo">
 				<p title="Podaj nowy adres e-mail">Adres e-mail</p>
 				<input type="text" name="uzytkownik_mail">
-				<br>
+				<p>Plik graficzny awatara</p>
 				<input type="file" name="awatar">
-				<br><br>
+				<br>
 				<input type="checkbox" name="uzytkownik_zgoda" checked disabled> Akceptuję regulamin korzystania z serwisu<br>
 				<input type="submit" value="Edytuj konto">
 			</form>';
@@ -78,7 +83,7 @@
 		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
 	}
 	
-	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
+	$szablon = preg_replace('/{ZawartoscStopki}/', $zawartosc_stopki, $szablon);
 	echo $szablon;
 		
 ?>

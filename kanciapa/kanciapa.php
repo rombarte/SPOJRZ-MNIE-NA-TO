@@ -10,7 +10,12 @@
 	$rozkaz_menu = 'Witaj w swojej profesjonalnej kanciapie';
 	$naglowek_linki = 'Wyświetl listę utworzonych przez siebie hiperlinków';
 	$tekst_powiadomienia = '';
-	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
+	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
+			<div>
+				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>
+				<a href="#" onclick="tekstPrzywroc();">Tekst</a>
+				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
+			</div>';
 	
 	// Startuję sesję potrzebną do sprawdzenia ilości błędnych prób logowania
 	session_start();
@@ -254,7 +259,7 @@
 	$szablon = preg_replace('/{ZawartoscKomputery}/', $lista_komputerow, $szablon);
 	$szablon = preg_replace('/{ZawartoscUzytkownicy}/', $lista_uzytkownikow, $szablon);
 
-	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
+	$szablon = preg_replace('/{ZawartoscStopki}/', $zawartosc_stopki, $szablon);
 	echo $szablon;
 	
 ?>

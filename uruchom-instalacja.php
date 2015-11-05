@@ -53,7 +53,7 @@
 			$baza_haslo = "'.$_POST['baza_haslo'].'";
 			$baza_nazwa = "'.$_POST['baza_nazwa'].'";
 			$nazwa_aplikacji = "'.$_POST['strona_nazwa'].'";
-			?>';
+		?>';
 		fwrite($plik_konfiguracja, $plik_zawartosc);
 		fclose($plik_konfiguracja);
 		

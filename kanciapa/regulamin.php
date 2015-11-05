@@ -31,7 +31,12 @@
 		<li>Korzystać z tego serwisu w należyty sposób</li>
 		<li>Cieszyć się każdą chwilą obcowania z tym produktem</li>
 		<li>Liczyć na to, że jego komputer nie wybuchnie</li>';
-	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
+	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
+			<div>
+				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>
+				<a href="#" onclick="tekstPrzywroc();">Tekst</a>
+				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
+			</div>';
 	
 	$szablon = file_get_contents('szablon/regulamin.html');
 	
@@ -44,7 +49,7 @@
 	$szablon = preg_replace('/{TekstRegulaminu}/', $tekst_regulaminu, $szablon);
 	$szablon = preg_replace('/{\/BLOK:REGULAMIN}/', '</div>', $szablon);
 
-	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
+	$szablon = preg_replace('/{ZawartoscStopki}/', $zawartosc_stopki, $szablon);
 	echo $szablon;
 	
 ?>

@@ -1,5 +1,5 @@
-Options FollowSymLinks
 DirectoryIndex instalacja.php index.php
+Options FollowSymLinks
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !instalacja.php
 RewriteCond %{REQUEST_FILENAME} !pozwolenie.php

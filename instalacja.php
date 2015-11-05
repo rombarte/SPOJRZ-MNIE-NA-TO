@@ -6,7 +6,12 @@
 	$rozkaz_menu = 'Zainstaluj skrypt na swoim serwerze';
 	$tekst_powiadomienia_niepowodzenie = 'Wprowadzone dane uniemożliwiają połączenie się z bazą danych';
 	$tekst_powiadomienia_sukces = 'Skrypt został poprawnie zainstalowany na twoim serwerze. <a href="kanciapa/logowanie.php">Zaloguj się</a>';
-	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
+	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
+			<div>
+				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>
+				<a href="#" onclick="tekstPrzywroc();">Tekst</a>
+				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
+			</div>';
 	
 	// Wczytuję szablon z pliku
 	$szablon = file_get_contents('szablon/instalacja.html');
@@ -60,7 +65,7 @@
 		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
 	}
 	
-	$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
+	$szablon = preg_replace('/{ZawartoscStopki}/', $zawartosc_stopki, $szablon);
 	echo $szablon;
 	
 ?>

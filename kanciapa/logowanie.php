@@ -7,7 +7,12 @@
 	$rozkaz_menu = 'Zaloguj się na swoje konto użytkownika, aby rozpocząć';
 	$tekst_powiadomienia_blad = 'Wprowadź poprawne dane logowania! Jeżeli nie masz jeszcze konta, załóż je teraz';
 	$tekst_powiadomienia_sukces = 'Zostałeś poprawnie wylogowany! Aby zalogować się ponownie, wpisz dane logowania ponownie';
-	$tekst_stopki = 'Copyright &copy; 2015 Bartłomiej Romanek';
+	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
+			<div>
+				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>
+				<a href="#" onclick="tekstPrzywroc();">Tekst</a>
+				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
+			</div>';
 	
 	// Startuję sesję potrzebną do sprawdzenia ilości błędnych prób logowania
 	session_start();
@@ -60,7 +65,7 @@
 			$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
 		}
 		
-		$szablon = preg_replace('/{TekstStopki}/', $tekst_stopki, $szablon);
+		$szablon = preg_replace('/{ZawartoscStopki}/', $zawartosc_stopki, $szablon);
 		echo $szablon;
 	}
 ?>

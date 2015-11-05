@@ -26,7 +26,7 @@ nav, footer {
 	width: 100%;
 }
 
-.bar-button {
+nav a, footer a {
 	box-sizing: border-box;
 	color: white;
 	float: right;
@@ -38,16 +38,25 @@ nav, footer {
 	width: 15.0rem;
 }
 
-.bar-button:hover {
+nav a:hover {
 	background-color: orange;
 }
 
-.bar-paragraph {
+footer p, nav p {
 	box-sizing: border-box;
 	color: white;
 	float: left;
 	display: inline;
 	padding: 2.0rem;
+	text-decoration: none;
+}
+
+footer a:hover {
+	background-color: orange;
+}
+
+footer div {
+	float: right;
 }
 
 section.main {
