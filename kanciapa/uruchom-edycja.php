@@ -33,13 +33,16 @@
 		}
 
 		if ($_FILES['awatar']['tmp_name'] != ''){
-			$uchwyt = fopen($_FILES['awatar']['tmp_name'], "r");
 			list($width, $height, $type, $attr) = getimagesize($_FILES['awatar']['tmp_name']);
-			$zawartosc = base64_encode(fread($uchwyt, $rozmiar));
-			fclose($uchwyt);
-			$_SESSION['awatar'] = $zawartosc;
 			
-			if ($width < 500 and $height < 500) {
+			$uchwyt = fopen($_FILES['awatar']['tmp_name'], "r");
+			$rozmiar = $_FILES['awatar']['size'];
+			$zawartosc = base64_encode(fread($uchwyt, $rozmiar));
+
+			fclose($uchwyt);
+			
+			if ($width <= 500 && $height <= 500) {
+				$_SESSION['awatar'] = $zawartosc;
 				mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET awatar = '" . $zawartosc . "' WHERE uzytkownik_login='" . $_SESSION['username'] . "'");
 			}
 			else {

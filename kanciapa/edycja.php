@@ -9,7 +9,7 @@
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Edytuj swoje konto, jeżeli tego potrzebujesz';
 	$tekst_powiadomienia_blad = 'Wprowadzone dane są już zajęte!';
-	$tekst_powiadomienia_rozmiar = 'Obrazek jest zbyt duży!';
+	$tekst_powiadomienia_rozmiar = 'Maksymalny rozmiar obrazka to: 500x500!';
 	$tekst_powiadomienia_sukces = 'Dane zostały zmienione poprawnie.';
 	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
 			<div>
