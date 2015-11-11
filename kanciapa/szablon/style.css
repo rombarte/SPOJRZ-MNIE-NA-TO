@@ -12,6 +12,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	min-width: 1024px;
 	width: 100%;
 }
 
@@ -185,11 +186,11 @@ table, td, th {
 	background-color: red;
 	width: 500px;
 	border-radius: 500px;
+	border-style: solid;
 	padding: 90px 0 110px 0;
 	color: white;
 	
 }
-
 .panic-form{
 	width: 100%;
 	padding-top: 20px;
