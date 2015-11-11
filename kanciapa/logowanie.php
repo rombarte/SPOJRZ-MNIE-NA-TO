@@ -1,5 +1,5 @@
 <?php
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
 	$zawartosc_menu = '<a href="rejestracja.php" class="bar-button">Rejestracja</a>

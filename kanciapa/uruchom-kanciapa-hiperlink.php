@@ -1,6 +1,6 @@
 ﻿<?php
 
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -14,7 +14,10 @@
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	if ($_SESSION['sid'] != session_id()) {
+		header("Location: uruchom-wylogowanie.php");
+		exit();
+	}
 	
 	// Wykonaj operacje
 	if (isset($_POST['usun'])) $zapytanie_rezultat = mysqli_query($baza_polaczenie, "DELETE FROM hiperlink WHERE hiperlink_id='".$_POST['usun']."';");

@@ -1,5 +1,5 @@
 <?php
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
 	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
@@ -9,6 +9,7 @@
 			<a href="regulamin.php" class="bar-button">Regulamin</a>';
 	$rozkaz_menu = 'Edytuj swoje konto, jeżeli tego potrzebujesz';
 	$tekst_powiadomienia_blad = 'Wprowadzone dane są już zajęte!';
+	$tekst_powiadomienia_rozmiar = 'Obrazek jest zbyt duży!';
 	$tekst_powiadomienia_sukces = 'Dane zostały zmienione poprawnie.';
 	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
 			<div>
@@ -17,11 +18,13 @@
 				<a href="#" onclick="tekstPowieksz();">Tekst+ </a>
 			</div>';
 	
-	// Startuję sesję potrzebną
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	if ($_SESSION['sid'] != session_id()) {
+		header("Location: uruchom-wylogowanie.php");
+		exit();
+	}
 	
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (!isset($_SESSION['id'])) {
@@ -43,7 +46,7 @@
 				<input type="password" name="uzytkownik_haslo">
 				<p title="Podaj nowy adres e-mail">Adres e-mail</p>
 				<input type="text" name="uzytkownik_mail">
-				<p>Plik graficzny awatara</p>
+				<p title="Maksymalny rozmiar obrazka: 500x500">Plik graficzny awatara</p>
 				<input type="file" name="awatar">
 				<br>
 				<input type="checkbox" name="uzytkownik_zgoda" checked disabled> Akceptuję regulamin korzystania z serwisu<br>
@@ -54,24 +57,37 @@
 	$szablon = preg_replace('/{NazwaAplikacji}/', $nazwa_aplikacji, $szablon);
 	$szablon = preg_replace('/{ZawartoscMenu}/', $zawartosc_menu, $szablon);
 	$szablon = preg_replace('/{RozkazMenu}/', $rozkaz_menu, $szablon);
-	$szablon = preg_replace('/{ZawartoscFormularz}/', $zawartosc_formularz, $szablon);
 	
-	if (isset($_GET['failure'])) {
-		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message error centered">', $szablon);
-		$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_blad, $szablon);
-		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+	if (isset($_GET['status'])) {
+		if ($_GET['status'] == 'failure') {
+			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
+			$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_blad, $szablon);
+			$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+			
+			$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
+			$szablon = preg_replace('/{ZawartoscFormularz}/', $zawartosc_formularz, $szablon);
+			$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
+		}
 		
-		$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
-		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
-	}
-	
-	else if (isset($_GET['success'])) {
-		$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message success centered">', $szablon);
-		$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_sukces, $szablon);
-		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+		else if ($_GET['status'] == 'success') {
+			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message success centered">', $szablon);
+			$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_sukces, $szablon);
+			$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+			
+			$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
+			$szablon = preg_replace('/{ZawartoscFormularz}/', '', $szablon);
+			$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
+		}
 		
-		$szablon = preg_replace('/{BLOK:FORMULARZ}/', '<div class="hided">', $szablon);
-		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '</div>', $szablon);
+		else if ($_GET['status'] == 'size') {
+			$szablon = preg_replace('/{BLOK:POWIADOMIENIE}/', '<div class="message failure centered">', $szablon);
+			$szablon = preg_replace('/{TekstPowiadomienia}/', $tekst_powiadomienia_rozmiar, $szablon);
+			$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '</div>', $szablon);
+			
+			$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
+			$szablon = preg_replace('/{ZawartoscFormularz}/', $zawartosc_formularz, $szablon);
+			$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
+		}
 	}
 	
 	else {
@@ -80,6 +96,7 @@
 		$szablon = preg_replace('/{\/BLOK:POWIADOMIENIE}/', '', $szablon);
 		
 		$szablon = preg_replace('/{BLOK:FORMULARZ}/', '', $szablon);
+		$szablon = preg_replace('/{ZawartoscFormularz}/', $zawartosc_formularz, $szablon);
 		$szablon = preg_replace('/{\/BLOK:FORMULARZ}/', '', $szablon);
 	}
 	

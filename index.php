@@ -7,7 +7,7 @@
 	
 	// Wyświetlam stronę z szablonu
 	else {
-		require "konfiguracja.dat";
+		require "konfiguracja.php";
 				
 		// Utwórz połączenie z bazą danych
 		$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -16,6 +16,7 @@
 		// Sprawdź połączenie z bazą danych
 		if (!$baza_polaczenie) {
 			header('Location: pozwolenie.php');
+			exit();
 		}
 		
 		$adres_komputera = mysqli_real_escape_string($baza_polaczenie, $_SERVER['REMOTE_ADDR']);

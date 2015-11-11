@@ -1,6 +1,6 @@
 ﻿<?php
 	
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -9,12 +9,16 @@
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
 		header('Location: ../pozwolenie.php');
+		exit();
 	}
 	
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	if ($_SESSION['sid'] != session_id()) {
+		header("Location: uruchom-wylogowanie.php");
+		exit();
+	}
 	
 	// Wykonaj operacje
 	if (isset($_POST['zmien'])){
@@ -70,7 +74,7 @@
 		mysqli_close($baza_polaczenie);
 		$_SESSION["powiadomienie"] = 'POPRAWNE WYKONANIE PROCEDURY PANIC';
 		header('Location: kanciapa.php?success');
-		die();
+		exit();
 	}
 	
 	

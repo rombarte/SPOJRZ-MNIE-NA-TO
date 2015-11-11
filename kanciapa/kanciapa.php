@@ -1,5 +1,5 @@
 ﻿<?php
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
 	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
@@ -96,10 +96,6 @@
 	$pozycja = strpos($katalog, 'kanciapa.php');
 	if ($pozycja > 0) $katalog = substr($katalog, 0, $pozycja);
 	$katalog = substr($katalog, 0, -9);
-	
-	//echo $katalog; die();
-	
-	
 	
 	for ($i = 0; $i < count($zapytanie_wiersz); $i++) {
 		$lista_linkow = $lista_linkow."<tr><td>".$i."</td><td>http://".$katalog.$zapytanie_wiersz[$i][1]."</td><td>".$zapytanie_wiersz[$i][2]."</td><td>".$zapytanie_wiersz[$i][3]."</td><td><form action='uruchom-kanciapa-hiperlink.php' method='post'><input type='hidden' name='usun' value='".$zapytanie_wiersz[$i][0]."' /><input type='submit' value='Usuń' /></form></td></tr>\n";

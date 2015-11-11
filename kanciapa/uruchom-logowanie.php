@@ -1,6 +1,6 @@
 ﻿<?php
 
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	session_start();
 	
@@ -42,6 +42,7 @@
 		
 		if ($zapytanie_wiersz[1] > 2) {
 			header('Location: logowanie.php?failure');
+			exit();
 		}
 		else {
 			$_SESSION['id'] = $zapytanie_wiersz[0];
@@ -72,6 +73,7 @@
 			header('Location: logowanie.php?failure');
 		}
 	}
+	
 	mysqli_close($baza_polaczenie);
 	
 ?>

@@ -1,11 +1,14 @@
 ﻿<?php
 	
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	if ($_SESSION['sid'] != session_id()) {
+		header("Location: uruchom-wylogowanie.php");
+		exit();
+	}
 	
 	// Utwórz połączenie
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -21,7 +24,6 @@
 		if ($_POST['uzytkownik_mail'] != ''){
 			$uzytkownik_mail = mysqli_real_escape_string($baza_polaczenie, $_POST['uzytkownik_mail']);
 			mysqli_query($baza_polaczenie, 'UPDATE uzytkownik SET uzytkownik_email = "'.$uzytkownik_mail.'" WHERE uzytkownik_login="'.$_SESSION['username'].'"');
-
 		}
 		
 		if ($_POST['uzytkownik_haslo'] != ''){
@@ -32,17 +34,30 @@
 
 		if ($_FILES['awatar']['tmp_name'] != ''){
 			$uchwyt = fopen($_FILES['awatar']['tmp_name'], "r");
-			$rozmiar = $_FILES['awatar']['size'];
+			list($width, $height, $type, $attr) = getimagesize($_FILES['awatar']['tmp_name']);
 			$zawartosc = base64_encode(fread($uchwyt, $rozmiar));
 			fclose($uchwyt);
 			$_SESSION['awatar'] = $zawartosc;
 			
-			mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET awatar = '" . $zawartosc . "' WHERE uzytkownik_login='" . $_SESSION['username'] . "'");
+			if ($width < 500 and $height < 500) {
+				mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET awatar = '" . $zawartosc . "' WHERE uzytkownik_login='" . $_SESSION['username'] . "'");
+			}
+			else {
+				header("Location: edycja.php?status=size");
+				exit();
+			}
 		}
 		
-		mysqli_close($baza_polaczenie);
-		header("Location: edycja.php?success");
-		exit();
+		if (mysqli_error($baza_polaczenie)) {
+			mysqli_close($baza_polaczenie);
+			header("Location: edycja.php?status=failure");
+		}
+		
+		else {
+			mysqli_close($baza_polaczenie);
+			header("Location: edycja.php?status=success");
+		}
+		
 	}
 	
 ?>

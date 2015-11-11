@@ -1,6 +1,6 @@
 ﻿<?php
 	
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 
 	// Utwórz połączenie
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -31,6 +31,7 @@
 	
 	if ($uzytkownik_nazwa == '' or $uzytkownik_haslo == '' or $uzytkownik_mail == '') {
 		header("Location: rejestracja.php?status=failure");
+		exit();
 	}
 	
 	// Wyślij zapytanie o istniejące dane
@@ -39,14 +40,15 @@
 	$zapytanie_wiersz = mysqli_fetch_row($zapytanie_rezultat);
 	if (count($zapytanie_wiersz) > 0) {
 		header("Location: rejestracja.php?status=failure");
+		exit();
 	}
 	else {
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "INSERT INTO uzytkownik (uzytkownik_id, uzytkownik_login, uzytkownik_haslo, uzytkownik_email, uzytkownik_ranga, uzytkownik_opis) VALUES (md5('".$uzytkownik_nazwa."'),'".$uzytkownik_nazwa."',sha1('".$uzytkownik_haslo."'),'".$uzytkownik_mail."',2,'Zwykły, szary użytkownik');");
 		
 		/* Poinformuj użytkownika o rejestracji mailem */
 		$naglowek = "Content-Type: text/html; charset=UTF-8";
-		$wiadomosc = "Szanowny odbiorco wiadomości,
-		Właśnie, czyli o godzinie ".date("Y-m-d H:i:s")." został zarejestrowany w serwisie $nazwa_aplikacji użytkownik $uzytkownik_nazwa powołując się na twój e-mail. Jeżeli to pomyłka, prosimy o kontakt.";
+		$wiadomosc = "<p>Szanowny odbiorco wiadomości,
+		Właśnie, czyli o godzinie " . date("Y-m-d H:i:s") . " został zarejestrowany w serwisie $nazwa_aplikacji użytkownik $uzytkownik_nazwa powołując się na twój e-mail. Jeżeli to pomyłka, prosimy o kontakt.</p>";
 		mail($uzytkownik_mail, "Rejestracja konta w serwisie $nazwa_aplikacji", $wiadomosc, $naglowek);
 		
 		header("Location: rejestracja.php?status=success");

@@ -7,13 +7,11 @@
 	// Testuj połączenie
 	if (!$baza_polaczenie) {
 		header("Location: instalacja.php?status=failure");
+		exit();
 	}
 	
 	else {
-		// Uruchamiam transakcję
-		mysqli_query($baza_polaczenie, "SET AUTOCOMMIT=0");
-		mysqli_query($baza_polaczenie, "START TRANSACTION");
-		
+
 		// Utwórz tabele w bazie danych
 		mysqli_query($baza_polaczenie, "CREATE TABLE uzytkownik (uzytkownik_id VARCHAR(32) PRIMARY KEY,uzytkownik_email VARCHAR(100) NOT NULL,uzytkownik_login VARCHAR(100) NOT NULL,uzytkownik_haslo CHAR(40) NOT NULL,uzytkownik_ranga INT(8) NOT NULL,uzytkownik_opis VARCHAR(200) NOT NULL,logowanie_status INT(8) NOT NULL,logowanie_data DATETIME NOT NULL, awatar MEDIUMBLOB NOT NULL) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
 		mysqli_query($baza_polaczenie, "CREATE TABLE komputer (komputer_id VARCHAR(32) PRIMARY KEY,komputer_adres VARCHAR(15) NOT NULL,komputer_opis VARCHAR(200) NOT NULL,komputer_status INT(8) NOT NULL,komputer_data DATETIME NOT NULL) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
@@ -21,13 +19,9 @@
 		mysqli_query($baza_polaczenie, "CREATE TABLE uzytkownik_komputer(uzytkownik_komputer_id1 VARCHAR(32) NOT NULL,uzytkownik_komputer_id2 VARCHAR(32) NOT NULL,FOREIGN KEY (`uzytkownik_komputer_id1`) REFERENCES uzytkownik (`uzytkownik_id`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`uzytkownik_komputer_id2`) REFERENCES komputer (`komputer_id`) ON DELETE CASCADE ON UPDATE CASCADE) DEFAULT CHARACTER SET UTF8,COLLATE utf8_unicode_ci,ENGINE=InnoDB;");
 		
 		// Wypełnij każdą z tabel rekordami
-		if ((mysqli_query($baza_polaczenie, "INSERT INTO uzytkownik (`uzytkownik_id`, `uzytkownik_email`, `uzytkownik_login`, `uzytkownik_haslo`, `uzytkownik_ranga`, `uzytkownik_opis`, `logowanie_status`, `logowanie_data`) VALUES (md5('admin'),'example@mail.com','admin',sha1('admin'),1,'Najlepszy admin',1,NOW());") == false) ||
-		(mysqli_query($baza_polaczenie, "INSERT INTO hiperlink (`hiperlink_id`, `uzytkownik_id`,`hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('m52v0'),md5('admin'),'http://rombarte.pl','m52v0',1,0,NOW());") == false) ||
-		(mysqli_query($baza_polaczenie, "INSERT INTO hiperlink (`hiperlink_id`,  `uzytkownik_id`, `hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('b7z2n'),md5('admin'),'http://pg.gda.pl','b7z2n',1,0,NOW());") == false)){
-			mysqli_query($baza_polaczenie, "ROLLBACK");
-		}
-			
-		else mysqli_query($baza_polaczenie, "COMMIT");
+		mysqli_query($baza_polaczenie, "INSERT INTO uzytkownik (`uzytkownik_id`, `uzytkownik_email`, `uzytkownik_login`, `uzytkownik_haslo`, `uzytkownik_ranga`, `uzytkownik_opis`, `logowanie_status`, `logowanie_data`) VALUES (md5('admin'),'example@mail.com','admin',sha1('admin'),1,'Najlepszy admin',1,NOW());");
+		mysqli_query($baza_polaczenie, "INSERT INTO hiperlink (`hiperlink_id`, `uzytkownik_id`,`hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('m52v0'),md5('admin'),'http://rombarte.pl','m52v0',1,0,NOW());");
+		mysqli_query($baza_polaczenie, "INSERT INTO hiperlink (`hiperlink_id`,  `uzytkownik_id`, `hiperlink_adres`, `hiperlink_cel`, `hiperlink_status`, `hiperlink_klikniecia`, `hiperlink_data`) VALUES (md5('b7z2n'),md5('admin'),'http://pg.gda.pl','b7z2n',1,0,NOW());");
 			
 		// Utworz widoki
 		mysqli_query($baza_polaczenie, "CREATE VIEW widok_logowanie AS SELECT uzytkownik_id, uzytkownik_login, uzytkownik_haslo, logowanie_status, awatar FROM uzytkownik");
@@ -46,14 +40,14 @@
 		mysqli_close($baza_polaczenie);
 		
 		// Zapisz plik konfiguracyjny na serwerze
-		$plik_konfiguracja = fopen("konfiguracja.dat", "w") or die("Nie można zapisać pliku konfiguracyjnego.");
+		$plik_konfiguracja = fopen("konfiguracja.php", "w") or die("Nie można zapisać pliku konfiguracyjnego.");
 		$plik_zawartosc = '<?php
 			$baza_serwer = "'.$_POST['baza_serwer'].'";
 			$baza_uzytkownik = "'.$_POST['baza_uzytkownik'].'";
 			$baza_haslo = "'.$_POST['baza_haslo'].'";
 			$baza_nazwa = "'.$_POST['baza_nazwa'].'";
 			$nazwa_aplikacji = "'.$_POST['strona_nazwa'].'";
-		?>';
+?>';
 		fwrite($plik_konfiguracja, $plik_zawartosc);
 		fclose($plik_konfiguracja);
 		

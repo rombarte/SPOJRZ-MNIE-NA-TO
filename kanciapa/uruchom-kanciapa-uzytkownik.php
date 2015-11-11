@@ -1,6 +1,6 @@
 ﻿<?php
 
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -9,12 +9,16 @@
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
 		header('Location: ../pozwolenie.php');
+		exit();
 	}
 	
 	session_start();
 	
 	// Weryfikacja sesji
-	if ($_SESSION['sid'] != session_id()) header("Location: uruchom-wylogowanie.php");
+	if ($_SESSION['sid'] != session_id()) {
+		header("Location: uruchom-wylogowanie.php");
+		exit();
+	}
 	
 	// Wykonaj operacje
 	if (isset($_POST['odblokuj'])) {
@@ -25,7 +29,6 @@
 	if (isset($_POST['zablokuj'])) {
 		$uzytkownik_id = mysqli_real_escape_string($baza_polaczenie, $_POST['zablokuj']);
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "UPDATE uzytkownik SET logowanie_status=3 WHERE uzytkownik_id='".$uzytkownik_id."'");
-
 	}
 	
 	if (mysqli_error($baza_polaczenie) != '') {

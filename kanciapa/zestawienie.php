@@ -11,7 +11,7 @@
 		header("Location: logowanie.php");
 	}
 	
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 		
 	// Utwórz połączenie z bazą danych
 	$baza_polaczenie = mysqli_connect($baza_serwer, $baza_uzytkownik, $baza_haslo, $baza_nazwa);
@@ -20,8 +20,10 @@
 	// Sprawdź połączenie z bazą danych
 	if (!$baza_polaczenie) {
 		header('Location: logowanie.php?failure');
+		exit();
 	}
 	
+	// Nagłówek dokumentu
 	echo "<html><head><meta charset='utf-8'><style>table, th, td { border: 1px solid black; }</style></head><body>";
 	
 	if (isset($_GET['type']) && ($_GET['type']) == 'hiperlink') {
@@ -64,6 +66,7 @@
 		echo $lista_linkow;
 	}
 	
+	mysqli_close($baza_polaczenie);
 	echo "</table></body></html>";
 	
 ?>

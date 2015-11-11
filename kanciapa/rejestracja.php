@@ -1,5 +1,5 @@
 <?php
-	require "../konfiguracja.dat";
+	require "../konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
 	$zawartosc_menu = '<a href="logowanie.php" class="bar-button">Logowanie</a>
@@ -32,6 +32,7 @@
 	// Sprawdzam, czy użytkownik jest zalogowany
 	if (isset($_SESSION['id'])) {
 		header("Location: kanciapa.php");
+		exit();
 	}
 	
 	// Wyświetlam stronę z szablonu

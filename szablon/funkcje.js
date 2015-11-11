@@ -1,7 +1,7 @@
 'use strict';
 
 function tekstPowieksz(){
-    document.getElementsByTagName('html')[0].style.fontSize = '70%';
+    document.getElementsByTagName('html')[0].style.fontSize = '75%';
 }
 
 function tekstPrzywroc(){

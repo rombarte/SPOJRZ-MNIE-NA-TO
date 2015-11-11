@@ -1,5 +1,5 @@
 <?php
-	require "konfiguracja.dat";
+	require "konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
 	$zawartosc_menu = '<a href="mailto:poczta@rombarte.pl" class="bar-button">Kontakt</a>';
