@@ -5,7 +5,7 @@
 	
 	// Definiuję podstawowe zmienne tekstowe
 	if (isset($_SESSION['id'])) {
-		$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
+		$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" alt="Awatar" />
 			<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="edycja.php" class="bar-button">Profil</a>
@@ -23,13 +23,17 @@
 	}
 	$rozkaz_menu = 'Przeczytaj regulamin korzystania z programu';
 	$tekst_regulaminu = '<h1>Użytkownikowi nie wolno:</h1>
-		<li>Próbować robić niedozwolone rzeczy</li>
-		<li>Próbować łamać zabezpieczenia tego serwisu</li>
-		<li>Śmiać się z niedoskonałości tego portalu</li>
+		<ul>
+			<li>Próbować robić niedozwolone rzeczy</li>
+			<li>Próbować łamać zabezpieczenia tego serwisu</li>
+			<li>Śmiać się z niedoskonałości tego portalu</li>
+		</ul>
 		<h1>Użytkownikowi ma prawo:</h1>
-		<li>Korzystać z tego serwisu w należyty sposób</li>
-		<li>Cieszyć się każdą chwilą obcowania z tym produktem</li>
-		<li>Liczyć na to, że jego komputer nie wybuchnie</li>';
+		<ul>
+			<li>Korzystać z tego serwisu w należyty sposób</li>
+			<li>Cieszyć się każdą chwilą obcowania z tym produktem</li>
+			<li>Liczyć na to, że jego komputer nie wybuchnie</li>
+		</ul>';
 	$zawartosc_stopki = '<p>Copyright &copy; 2015 Bartłomiej Romanek<p>
 			<div>
 				<a href="#" onclick="tekstPomniejsz();">- Tekst</a>

@@ -2,7 +2,7 @@
 	require "../konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
-	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
+	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" alt="Awatar" />
 			<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="edycja.php" class="bar-button">Profil</a>
@@ -102,26 +102,31 @@
 	}
 	
 	$lista_linkow=$lista_linkow.'</table> 
-			<table class="noborder">
-				<form action="uruchom-kanciapa-hiperlink.php" method="post" accept-charset="UTF-8">
-					<tr>
-						<td>
-							<p>Dodaj link do strony:</p>
-							<input type="text" name="hiperlink" required>
-						</td>
-						<td>
-							<p>Własny link (opcjonalnie):</p>
-							<input type="text" name="obciety">
-						</td> 
-						<td>
-							<input type="submit" value="Dodaj hiperlink">
-						</td>
-						<td>
-							<input type="button" value="Eksportuj listę" onclick="location.href = \'zestawienie.php?type=hiperlink\';">
-						</td>
-				    </tr>
-			   </form>
-			</table>';
+			<form action="uruchom-kanciapa-hiperlink.php" method="post" accept-charset="UTF-8">
+			
+				<table class="noborder">
+					
+						<tr>
+							<td>
+								<p>Dodaj link do strony:</p>
+								<input type="text" name="hiperlink" required>
+							</td>
+							<td>
+								<p>Własny link (opcjonalnie):</p>
+								<input type="text" name="obciety">
+							</td> 
+							<td>
+								<input type="submit" value="Dodaj hiperlink">
+							</td>
+							<td>
+								<input type="button" value="Eksportuj listę" onclick="location.href = \'zestawienie.php?type=hiperlink\';">
+							</td>
+						</tr>
+				   
+				</table>
+			
+			</form>';
+	
 	
 	if ($_SESSION['username']=='admin'){
 		
@@ -174,27 +179,31 @@
 				</tr>\n";
 		}
 		
-		$lista_komputerow=$lista_komputerow.'</table> 
-				<table class="noborder">
-					<form action="uruchom-kanciapa-komputer.php" method="post" accept-charset="UTF-8">
-						<tr>
-							<td>
-								<p>Dodaj adres komputera do listy:</p>
-								<input type="text" name="dodaj" required>
-							</td>
-							<td>
-								<p>Własny opis (opcjonalnie):</p>
-								<input type="text" name="opis">
-							</td> 
-							<td>
-								<input type="submit" value="Dodaj komputer">
-							</td>
-							<td>
-								<input type="button" value="Eksportuj listę" onclick="location.href = \'zestawienie.php?type=komputer\';">
-							</td>
-					    </tr>
-				   	</form>
-				</table>';
+		$lista_komputerow=$lista_komputerow.'</table>
+				<form action="uruchom-kanciapa-komputer.php" method="post" accept-charset="UTF-8">
+				
+					<table class="noborder">
+						
+							<tr>
+								<td>
+									<p>Dodaj adres komputera do listy:</p>
+									<input type="text" name="dodaj" required>
+								</td>
+								<td>
+									<p>Własny opis (opcjonalnie):</p>
+									<input type="text" name="opis">
+								</td> 
+								<td>
+									<input type="submit" value="Dodaj komputer">
+								</td>
+								<td>
+									<input type="button" value="Eksportuj listę" onclick="location.href = \'zestawienie.php?type=komputer\';">
+								</td>
+							</tr>
+						
+					</table>
+				
+				</form>';
 				
 		$zapytanie_rezultat = mysqli_query($baza_polaczenie, "SELECT uzytkownik_login, uzytkownik_email, uzytkownik_ranga, uzytkownik_opis, logowanie_data, logowanie_status, uzytkownik_id FROM uzytkownik WHERE (SELECT uzytkownik_ranga FROM uzytkownik WHERE uzytkownik_id=md5('".$_SESSION['username']."'))=1");
 		$zapytanie_wiersz = mysqli_fetch_all($zapytanie_rezultat);

@@ -2,7 +2,7 @@
 	require "../konfiguracja.php";
 	
 	// Definiuję podstawowe zmienne tekstowe
-	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" />
+	$zawartosc_menu = '<img src="data:image/jpg;base64,{Awatar}" alt="Awatar" />
 			<p class="bar-paragraph">Zalogowano jako: {NazwaUzytkownika} (IP: {AdresIP})</p>
 			<a href="uruchom-wylogowanie.php" class="bar-button">Wyloguj</a>
 			<a href="kanciapa.php" class="bar-button">Kanciapa</a>
